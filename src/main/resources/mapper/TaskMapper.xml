@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mck.activiti.mapper.TaskMapper">
+
+
+    <select id="queryMyTask" parameterType="string" resultType="com.mck.activiti.model.vo.TaskVo">
+        SELECT
+            t.vacation_id,
+            t.user_id,
+            t.start_time,
+            t.end_time,
+            t.vacation_context,
+            t2.flow_def_id,
+            t3.ID_ task_Id,
+            t3.NAME_ task_name,
+            t3.PROC_INST_ID_ flow_id,
+            t3.TASK_DEF_KEY_ task_def_key,
+            t3.ASSIGNEE_ assign,
+            t3.CREATE_TIME_ create_time
+        FROM
+            t_vacation_order t,
+            tf_flow_main t2,
+            ACT_RU_TASK t3
+        WHERE
+            t.vacation_id = t2.order_no
+        AND t2.flow_id = t3.PROC_INST_ID_
+        AND t.vacation_state = 1
+        AND t3.ASSIGNEE_ = #{userId}
+    </select>
+    <!--查询审批单对应的任务信息-->
+    <select id="queryTaskById" resultType="com.mck.activiti.model.vo.TaskVo" parameterType="long">
+        SELECT
+            t.vacation_id,
+            t.user_id,
+            t.start_time,
+            t.end_time,
+            t.vacation_context,
+            t2.flow_def_id,
+            t3.ID_ task_Id,
+            t3.NAME_ task_name,
+            t3.TASK_DEF_KEY_ task_def_key,
+            t3.ASSIGNEE_ assign,
+            t3.CREATE_TIME_ create_time
+        FROM
+            t_vacation_order t,
+            tf_flow_main t2,
+            ACT_RU_TASK t3
+            WHERE
+            t.vacation_id = t2.order_no
+            AND t2.flow_id = t3.PROC_INST_ID_
+            and t.vacation_id = #{vacationId}
+    </select>
+</mapper>

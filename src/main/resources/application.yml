@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: mck-activiti
+  profiles:
+    active: dev
+  activiti:
+    check-process-definitions: false #关闭验证自动部署
+  thymeleaf:
+    mode: LEGACYHTML5 #声明为非严格的HTML5格式
+    cache: false
+  jackson:
+    generator:
+      write-numbers-as-strings: true # 将数字类型全部转化为字符串  修复Long类型太长，而Java序列化JSON丢失精度问题
+
+server:
+  port: 7004
+  activiti:
+    db-history-used: true
+    history-level: full
+    # 关闭定时器,因为已经用xxl-job做了定时任务
+    async-executor-activate: false
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true  # 开启驼峰功能
+    cache-enabled: true # 开启缓存
+
+#  global-config:
+#    db-config:
+#      field-strategy: NOT_NULL  #字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
+#      logic-delete-value: 1 #逻辑删除配置
+#      logic-not-delete-value: 0
