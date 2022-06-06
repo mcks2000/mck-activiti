@@ -10,6 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2020-05-28
  */
 @Mapper
-public interface SystemMenuMapper extends BaseMapper<SysMenu> {
+public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
 }

@@ -111,7 +111,7 @@
                 data: JSON.stringify(params),
                 success: function(res) {
                     if(res.code == '200') {
-                        layui.data('sysUser', {//本地存储:向order表存储对象
+                        layui.data('user', {//本地存储:向order表存储对象
                             key: 'token',
                             value: res.data
                         });

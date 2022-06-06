@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Mapper
-public interface UserMapper extends BaseMapper<SysUser> {
+public interface SysUserMapper extends BaseMapper<SysUser> {
 
 }

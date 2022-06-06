@@ -10,7 +10,7 @@ import com.mck.activiti.common.entity.ResponseUtil;
 import com.mck.activiti.common.entity.ResultCode;
 import com.mck.activiti.common.entity.SysConstant;
 import com.mck.activiti.model.entity.SysUser;
-import com.mck.activiti.mapper.UserMapper;
+import com.mck.activiti.mapper.SysUserMapper;
 import com.mck.activiti.service.ICacheService;
 import com.mck.activiti.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private ICacheService cacheService;
     @Autowired
-    private UserMapper userMapper;
+    private SysUserMapper sysUserMapper;
 
     @Override
     public SysUser getCurrentUser() {
@@ -52,14 +52,14 @@ public class UserServiceImpl implements IUserService {
     public SysUser queryUserById(String userId) {
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
-        return userMapper.selectOne(queryWrapper);
+        return sysUserMapper.selectOne(queryWrapper);
     }
 
     @Override
     public ResponseResult<SysUser> doLogin(String userName, String passWord) {
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_name", userName);
-        SysUser sysUser = userMapper.selectOne(queryWrapper);
+        SysUser sysUser = sysUserMapper.selectOne(queryWrapper);
         if (ObjectUtil.isNull(sysUser)) {
             return ResponseUtil.makeErrRsp(ResultCode.FAIL.code, "用户不存在", "用户不存在");
         }

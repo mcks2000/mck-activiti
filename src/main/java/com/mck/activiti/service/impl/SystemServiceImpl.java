@@ -6,7 +6,7 @@ import com.mck.activiti.model.vo.MenuVo;
 import com.mck.activiti.model.entity.SysDict;
 import com.mck.activiti.model.entity.SysMenu;
 import com.mck.activiti.mapper.SysDictMapper;
-import com.mck.activiti.mapper.SystemMenuMapper;
+import com.mck.activiti.mapper.SysMenuMapper;
 import com.mck.activiti.service.ISystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ import java.util.Map;
 public class SystemServiceImpl implements ISystemService {
 
     @Autowired
-    private SystemMenuMapper systemMenuMapper;
+    private SysMenuMapper sysMenuMapper;
     @Autowired
     private SysDictMapper sysDictMapper;
 
@@ -40,7 +40,7 @@ public class SystemServiceImpl implements ISystemService {
         QueryWrapper<SysMenu> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", 1);
         queryWrapper.orderByAsc("sort");
-        List<SysMenu> menuList = systemMenuMapper.selectList(queryWrapper);
+        List<SysMenu> menuList = sysMenuMapper.selectList(queryWrapper);
 
         List<MenuVo> menuInfo = new ArrayList<>();
         for (SysMenu e : menuList) {

@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  **/
 @Slf4j
 @RestController
-@RequestMapping("user")
+@RequestMapping("sysUser")
 public class UserInfoController {
 
     @Autowired
