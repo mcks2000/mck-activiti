@@ -12,7 +12,7 @@
         FROM
             t_vacation_order t
         LEFT JOIN sys_user t2 ON t.user_id = t2.user_id
-        LEFT JOIN tf_flow_audit t3 ON t3.order_no = t.vacation_id
+        LEFT JOIN t_flow_audit t3 ON t3.order_no = t.vacation_id
         LEFT JOIN sys_dict t4 ON t4.dict_value = t.vacation_type
         WHERE t2.user_id = #{userId}
         ORDER BY t.create_time DESC

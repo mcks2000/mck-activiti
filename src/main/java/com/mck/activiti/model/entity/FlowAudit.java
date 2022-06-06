@@ -17,7 +17,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("tf_flow_audit")
+@TableName("t_flow_audit")
 public class FlowAudit implements Serializable {
 
     private static final long serialVersionUID = 1L;

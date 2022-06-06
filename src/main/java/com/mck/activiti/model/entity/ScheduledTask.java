@@ -21,7 +21,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("scheduled_task")
+@TableName("t_scheduled_task")
 public class ScheduledTask implements Serializable {
 
     private static final long serialVersionUID = 1L;

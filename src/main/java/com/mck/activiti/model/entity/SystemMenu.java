@@ -17,7 +17,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("system_menu")
+@TableName("sys_menu")
 public class SystemMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;

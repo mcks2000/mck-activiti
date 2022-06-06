@@ -19,7 +19,7 @@
             t3.CREATE_TIME_ create_time
         FROM
             t_vacation_order t,
-            tf_flow_audit t2,
+            t_flow_audit t2,
             ACT_RU_TASK t3
         WHERE
             t.vacation_id = t2.order_no
@@ -43,7 +43,7 @@
             t3.CREATE_TIME_ create_time
         FROM
             t_vacation_order t,
-            tf_flow_audit t2,
+            t_flow_audit t2,
             ACT_RU_TASK t3
             WHERE
             t.vacation_id = t2.order_no

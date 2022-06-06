@@ -18,7 +18,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("tl_process_log")
+@TableName("t_process_log")
 public class ProcessLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
