@@ -793,11 +793,11 @@ var ProcessDiagramGenerator = {
 		
 		// TODO: remove highLightes from all flows before set new highLight
 		for (var i in highLights.flows) {
-			var flowId = highLights.flows[i];
-			var object = processDiagramCanvas.g.getById(flowId);
+			var processId = highLights.flows[i];
+			var object = processDiagramCanvas.g.getById(processId);
 			var flow = object.data("contextObject");
 			flow.isHighLighted = true;
-			processDiagramCanvas.highLightFlow(flowId);
+			processDiagramCanvas.highLightFlow(processId);
 		}
 	},
 	

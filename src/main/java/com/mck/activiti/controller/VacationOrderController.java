@@ -63,12 +63,12 @@ public class VacationOrderController {
      * 审批详情页
      *
      * @param model
-     * @param flowId
+     * @param processId
      * @param orderNo
      * @return
      */
     @RequestMapping("provalDetail")
-    public String provalDetail(Model model, @RequestParam("flowId") String flowId, @RequestParam("orderNo") String orderNo) {
+    public String provalDetail(Model model, @RequestParam("processId") String processId, @RequestParam("orderNo") String orderNo) {
         List<ProcessLog> logList = logService.queryOperLog(Long.valueOf(orderNo));
         model.addAttribute("logList", logList);
         return "/page/viewFlow";

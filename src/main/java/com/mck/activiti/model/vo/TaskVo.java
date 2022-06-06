@@ -46,7 +46,7 @@ public class TaskVo {
     /**
      * 流程实例ID
      */
-    private String flowId;
+    private String processId;
 
     /**
      * 任务ID

@@ -50,7 +50,7 @@ layui.use(['form','table'],function () {
                 maxmin:true,
                 shadeClose: true,
                 area: ['80%', '80%'],
-                content: '/vacation/provalDetail?flowId='+data.flowId + '&orderNo='+data.vacationId,
+                content: '/vacation/provalDetail?processId='+data.processId + '&orderNo='+data.vacationId,
             });
             $(window).on("resize", function () {
                 layer.full(index);

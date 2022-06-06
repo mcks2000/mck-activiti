@@ -9,7 +9,7 @@ import com.mck.activiti.common.entity.PageBean;
 import com.mck.activiti.common.entity.SysConstant;
 import com.mck.activiti.common.util.CommonUtil;
 import com.mck.activiti.mapper.VacationOrderMapper;
-import com.mck.activiti.model.entity.FlowMain;
+import com.mck.activiti.model.entity.FlowAudit;
 import com.mck.activiti.model.entity.ProcessLog;
 import com.mck.activiti.model.entity.User;
 import com.mck.activiti.model.entity.VacationOrder;
@@ -105,21 +105,21 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
         //匹配流程并指定申请人
         Map<String, Object> variables = new HashMap<>();
         User currentUser = userService.getCurrentUser();
-        String flowId = "";
+        String processId = "";
         //匹配流程之前查询是否已经匹配过
-        FlowMain flowMain = flowInfoService.queryFlowMainByOrderNo(vacationId);
-        if (ObjectUtil.isNull(flowMain)) {
+        FlowAudit flowAudit = flowInfoService.queryFlowAuditByOrderNo(vacationId);
+        if (ObjectUtil.isNull(flowAudit)) {
             variables.put("applyuser", currentUser.getUserId());
-            flowId = flowInfoService.resolve(vacationId, variables);
+            processId = flowInfoService.resolve(vacationId, variables);
         } else {
-            flowId = String.valueOf(flowMain.getFlowId());
+            processId = String.valueOf(flowAudit.getProcessId());
         }
-        if (StrUtil.isBlank(flowId)) {
+        if (StrUtil.isBlank(processId)) {
             res = false;
             return res;
         }
         //流程流转，对应工作流提交成功
-        Task task = flowInfoService.queryTaskByInstId(flowId);
+        Task task = flowInfoService.queryTaskByInstId(processId);
         if (ObjectUtil.isNull(task)) {
             res = false;
             return res;

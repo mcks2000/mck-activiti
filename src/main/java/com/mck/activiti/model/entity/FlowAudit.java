@@ -1,6 +1,5 @@
 package com.mck.activiti.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -18,16 +17,16 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("tf_flow_main")
-public class FlowMain implements Serializable {
+@TableName("tf_flow_audit")
+public class FlowAudit implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 主键
      */
-    @TableId("flow_inst_id")
-    private Long flowInstId;
+    @TableId("flow_audit_id")
+    private Long flowAuditId;
 
     /**
      * 审批单号
@@ -42,7 +41,7 @@ public class FlowMain implements Serializable {
     /**
      * 流程ID(启动流程时生成的编码)
      */
-    private Long flowId;
+    private Long processId;
 
     /**
      * 流程规则ID

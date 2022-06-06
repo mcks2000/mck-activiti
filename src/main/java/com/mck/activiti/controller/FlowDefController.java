@@ -1,13 +1,12 @@
 package com.mck.activiti.controller;
 
-import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mck.activiti.common.config.BizException;
 import com.mck.activiti.common.entity.*;
 import com.mck.activiti.model.entity.FlowDef;
-import com.mck.activiti.model.entity.FlowMain;
+import com.mck.activiti.model.entity.FlowAudit;
 import com.mck.activiti.model.entity.FlowRule;
 import com.mck.activiti.model.entity.SysDict;
 import com.mck.activiti.service.IFlowInfoService;
@@ -87,8 +86,8 @@ public class FlowDefController {
         if (StrUtil.isBlank(ruleId)) {
             throw new BizException(ResultCode.NOT_FOUND.code, "流程规则ID不存在!", "流程规则ID不存在!");
         }
-        List<FlowMain> flowMains = flowInfoService.queryFlowByRuleId(ruleId);
-        if (ObjectUtil.isNotEmpty(flowMains)) {
+        List<FlowAudit> flowAudits = flowInfoService.queryFlowByRuleId(ruleId);
+        if (ObjectUtil.isNotEmpty(flowAudits)) {
             throw new BizException(ResultCode.INTERNAL_SERVER_ERROR.code, "改流程已被使用，无法删除!", "改流程已被使用，无法删除!");
         }
         flowInfoService.deleteFlowRuleById(ruleId);

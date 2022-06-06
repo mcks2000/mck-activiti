@@ -2,9 +2,8 @@ package com.mck.activiti.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mck.activiti.common.entity.PageBean;
-import com.mck.activiti.common.entity.ResponseResult;
 import com.mck.activiti.model.entity.FlowDef;
-import com.mck.activiti.model.entity.FlowMain;
+import com.mck.activiti.model.entity.FlowAudit;
 import com.mck.activiti.model.entity.FlowRule;
 import org.activiti.engine.task.Task;
 
@@ -65,17 +64,17 @@ public interface IFlowInfoService {
     /**
      * 启动流程
      *
-     * @param flowMain
+     * @param flowAudit
      * @param variables
      */
-    String runFlow(FlowMain flowMain, Map<String, Object> variables);
+    String runFlow(FlowAudit flowAudit, Map<String, Object> variables);
 
     /**
      * 记录流转主表信息
      *
-     * @param flowMain
+     * @param flowAudit
      */
-    void insertFlowMain(FlowMain flowMain);
+    void insertFlowAudit(FlowAudit flowAudit);
 
     /**
      * 根据流程实例查询当前任务信息
@@ -91,17 +90,17 @@ public interface IFlowInfoService {
      * @param orderNo
      * @return
      */
-    FlowMain queryFlowMainByOrderNo(Long orderNo);
+    FlowAudit queryFlowAuditByOrderNo(Long orderNo);
 
     /**
      * 根据主键查询
      *
-     * @param flowInstId
+     * @param flowAuditId
      * @return
      */
-    FlowMain queryFlowById(Long flowInstId);
+    FlowAudit queryFlowById(Long flowAuditId);
 
     void deleteFlowRuleById(String ruleId);
 
-    List<FlowMain> queryFlowByRuleId(String ruleId);
+    List<FlowAudit> queryFlowByRuleId(String ruleId);
 }

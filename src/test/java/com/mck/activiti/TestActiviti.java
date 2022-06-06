@@ -107,8 +107,8 @@ public class TestActiviti {
 
     @Test
     public void queryTask() {
-        String flowId = "1268068631334354944";
-        Task task = taskService.createTaskQuery().processInstanceId(flowId).active().singleResult();
+        String processId = "1268068631334354944";
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         log.info(task.getId() + ":" + task.getAssignee());
     }
 

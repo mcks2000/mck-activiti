@@ -15,7 +15,7 @@ public class VacationOrderVo extends VacationOrder {
 
     private String userName;
 
-    private String flowId;
+    private String processId;
 
     private String typeName;
 }

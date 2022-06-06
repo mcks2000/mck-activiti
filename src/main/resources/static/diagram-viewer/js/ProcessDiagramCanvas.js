@@ -1887,10 +1887,10 @@ ProcessDiagramCanvas.prototype = {
 		shape.attr("stroke", HIGHLIGHT_COLOR);
 	},
 	
-	highLightFlow: function(flowId){
-		var shapeFlow = this.g.getById(flowId);
+	highLightFlow: function(processId){
+		var shapeFlow = this.g.getById(processId);
 		if (!shapeFlow) {
-			console.error("Flow " + flowId + " not found");
+			console.error("Flow " + processId + " not found");
 			return;
 		}
 		

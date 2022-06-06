@@ -7,16 +7,13 @@ import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mck.activiti.common.entity.PageBean;
-import com.mck.activiti.common.entity.ResponseResult;
-import com.mck.activiti.common.entity.ResponseUtil;
-import com.mck.activiti.common.entity.ResultCode;
 import com.mck.activiti.common.util.CommonUtil;
 import com.mck.activiti.model.entity.FlowDef;
-import com.mck.activiti.model.entity.FlowMain;
+import com.mck.activiti.model.entity.FlowAudit;
 import com.mck.activiti.model.entity.FlowRule;
 import com.mck.activiti.model.entity.VacationOrder;
 import com.mck.activiti.mapper.FlowDefMapper;
-import com.mck.activiti.mapper.FlowMainMapper;
+import com.mck.activiti.mapper.FlowAuditMapper;
 import com.mck.activiti.mapper.FlowRuleMapper;
 import com.mck.activiti.service.IFlowInfoService;
 import com.mck.activiti.service.IVacationOrderService;
@@ -46,7 +43,7 @@ public class FlowInfoServiceImpl implements IFlowInfoService {
     @Autowired
     private FlowRuleMapper flowRuleMapper;
     @Autowired
-    private FlowMainMapper flowMainMapper;
+    private FlowAuditMapper flowAuditMapper;
     @Autowired
     private IVacationOrderService vacationOrderService;
     @Autowired
@@ -137,41 +134,41 @@ public class FlowInfoServiceImpl implements IFlowInfoService {
         //查询流程定义信息
         FlowDef flowDef = this.queryFlowDef(currFlowRule.getDefId());
         //记录流程主表信息
-        FlowMain flowMain = new FlowMain();
-        flowMain.setOrderNo(orderId);
-        flowMain.setFlowDefId(flowDef.getFlowCode());
-        flowMain.setRuleId(currFlowRule.getRuleId());
-        this.insertFlowMain(flowMain);
+        FlowAudit flowAudit = new FlowAudit();
+        flowAudit.setOrderNo(orderId);
+        flowAudit.setFlowDefId(flowDef.getFlowCode());
+        flowAudit.setRuleId(currFlowRule.getRuleId());
+        this.insertFlowAudit(flowAudit);
         //运行流程
-        String flowId = this.runFlow(flowMain, variables);
-        return flowId;
+        String processId = this.runFlow(flowAudit, variables);
+        return processId;
     }
 
     @Override
-    public String runFlow(FlowMain flowMain, Map<String, Object> variables) {
-        String flowId = "";
+    public String runFlow(FlowAudit flowAudit, Map<String, Object> variables) {
+        String processId = "";
         try {
-            log.info("-------->启动流程开始:{}", flowMain.getOrderNo());
-            ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(flowMain.getFlowDefId(), String.valueOf(flowMain.getFlowInstId()), variables);
-            flowId = processInstance.getProcessInstanceId();
-            log.info("------>流程启动结束flowId:{}", flowId);
+            log.info("-------->启动流程开始:{}", flowAudit.getOrderNo());
+            ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(flowAudit.getFlowDefId(), String.valueOf(flowAudit.getFlowAuditId()), variables);
+            processId = processInstance.getProcessInstanceId();
+            log.info("------>流程启动结束flowId:{}", processId);
 
-            flowMain.setFlowId(Long.valueOf(flowId));
-            flowMainMapper.updateById(flowMain);
+            flowAudit.setProcessId(Long.valueOf(processId));
+            flowAuditMapper.updateById(flowAudit);
         } catch (Exception e) {
             log.error("------------->流程启动失败.....");
             e.printStackTrace();
         }
-        return flowId;
+        return processId;
     }
 
     @Override
     @Transactional
-    public void insertFlowMain(FlowMain flowMain) {
-        flowMain.setFlowInstId(CommonUtil.genId());
-        flowMain.setFlowState(1);
-        flowMain.setCreateTime(DateUtil.date());
-        flowMainMapper.insert(flowMain);
+    public void insertFlowAudit(FlowAudit flowAudit) {
+        flowAudit.setFlowAuditId(CommonUtil.genId());
+        flowAudit.setFlowState(1);
+        flowAudit.setCreateTime(DateUtil.date());
+        flowAuditMapper.insert(flowAudit);
     }
 
     @Override
@@ -181,17 +178,17 @@ public class FlowInfoServiceImpl implements IFlowInfoService {
     }
 
     @Override
-    public FlowMain queryFlowMainByOrderNo(Long orderNo) {
-        QueryWrapper<FlowMain> queryWrapper = new QueryWrapper<>();
+    public FlowAudit queryFlowAuditByOrderNo(Long orderNo) {
+        QueryWrapper<FlowAudit> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("order_no", orderNo);
-        return flowMainMapper.selectOne(queryWrapper);
+        return flowAuditMapper.selectOne(queryWrapper);
     }
 
     @Override
-    public FlowMain queryFlowById(Long flowInstId) {
-        QueryWrapper<FlowMain> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("flow_inst_id", flowInstId);
-        return flowMainMapper.selectOne(queryWrapper);
+    public FlowAudit queryFlowById(Long flowAuditId) {
+        QueryWrapper<FlowAudit> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("flow_audit_id", flowAuditId);
+        return flowAuditMapper.selectOne(queryWrapper);
     }
 
     /**
@@ -207,14 +204,14 @@ public class FlowInfoServiceImpl implements IFlowInfoService {
 
     /**
      * @param ruleId 流程规则ID
-     * @return List<FlowMain>
+     * @return List<FlowAudit>
      * @Description 通过 {ruleId} 查询流程与审批单表关联表
      */
     @Override
-    public List<FlowMain> queryFlowByRuleId(String ruleId) {
-        QueryWrapper<FlowMain> queryWrapper = new QueryWrapper<>();
+    public List<FlowAudit> queryFlowByRuleId(String ruleId) {
+        QueryWrapper<FlowAudit> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("rule_id", ruleId);
-        return flowMainMapper.selectList(queryWrapper);
+        return flowAuditMapper.selectList(queryWrapper);
     }
 
 }
