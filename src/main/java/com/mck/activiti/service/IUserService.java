@@ -1,7 +1,7 @@
 package com.mck.activiti.service;
 
 import com.mck.activiti.common.entity.ResponseResult;
-import com.mck.activiti.model.entity.User;
+import com.mck.activiti.model.entity.SysUser;
 
 /**
  * @Description: 服务类
@@ -15,7 +15,7 @@ public interface IUserService {
      *
      * @return
      */
-    User getCurrentUser();
+    SysUser getCurrentUser();
 
     /**
      * 根据用户名查询用户信息
@@ -23,7 +23,7 @@ public interface IUserService {
      * @param userId
      * @return
      */
-    User queryUserById(String userId);
+    SysUser queryUserById(String userId);
 
     /**
      * 用户登录
@@ -32,7 +32,7 @@ public interface IUserService {
      * @param passWord
      * @return
      */
-    ResponseResult<User> doLogin(String userName, String passWord);
+    ResponseResult<SysUser> doLogin(String userName, String passWord);
 
 
 }

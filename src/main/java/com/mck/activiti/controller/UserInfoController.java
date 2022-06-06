@@ -8,7 +8,7 @@ import com.mck.activiti.common.entity.ResponseUtil;
 import com.mck.activiti.common.entity.ResultCode;
 import com.mck.activiti.common.entity.SysConstant;
 import com.mck.activiti.common.util.CookieUtil;
-import com.mck.activiti.model.entity.User;
+import com.mck.activiti.model.entity.SysUser;
 import com.mck.activiti.service.ICacheService;
 import com.mck.activiti.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,13 +36,13 @@ public class UserInfoController {
     /**
      * 登录
      *
-     * @param user
+     * @param sysUser
      * @param response
      * @return
      */
     @PostMapping("login")
-    public ResponseResult<User> doLogin(@RequestBody User user, HttpServletResponse response) {
-        ResponseResult<User> userResponseResult = userService.doLogin(user.getUserName(), user.getUserPass());
+    public ResponseResult<SysUser> doLogin(@RequestBody SysUser sysUser, HttpServletResponse response) {
+        ResponseResult<SysUser> userResponseResult = userService.doLogin(sysUser.getUserName(), sysUser.getUserPass());
         String token = IdUtil.fastSimpleUUID();
         ServletUtil.addCookie(response, SysConstant.ACTIVITI_COOKIE, token, -1); //关闭浏览器登录失效
         cacheService.cacheObjData(token, userResponseResult.getData(), 60);
@@ -56,12 +56,12 @@ public class UserInfoController {
      * @return
      */
     @PostMapping("getLoginInfo")
-    public ResponseResult<User> getLoginInfo() {
-        User currentUser = userService.getCurrentUser();
-        if (ObjectUtil.isNull(currentUser)) {
+    public ResponseResult<SysUser> getLoginInfo() {
+        SysUser currentSysUser = userService.getCurrentUser();
+        if (ObjectUtil.isNull(currentSysUser)) {
             return ResponseUtil.makeErrRsp(ResultCode.NOT_LOGIN.code, "登录失效", "登录失效");
         }
-        return ResponseUtil.makeOKRsp(currentUser);
+        return ResponseUtil.makeOKRsp(currentSysUser);
     }
 
     /**

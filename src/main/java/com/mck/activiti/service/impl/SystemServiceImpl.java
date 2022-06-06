@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mck.activiti.common.util.TreeUtil;
 import com.mck.activiti.model.vo.MenuVo;
 import com.mck.activiti.model.entity.SysDict;
-import com.mck.activiti.model.entity.SystemMenu;
+import com.mck.activiti.model.entity.SysMenu;
 import com.mck.activiti.mapper.SysDictMapper;
 import com.mck.activiti.mapper.SystemMenuMapper;
 import com.mck.activiti.service.ISystemService;
@@ -37,13 +37,13 @@ public class SystemServiceImpl implements ISystemService {
         Map<String, Object> logo = new HashMap<>(16);
 
         //查询状态为启用的菜单
-        QueryWrapper<SystemMenu> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SysMenu> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", 1);
         queryWrapper.orderByAsc("sort");
-        List<SystemMenu> menuList = systemMenuMapper.selectList(queryWrapper);
+        List<SysMenu> menuList = systemMenuMapper.selectList(queryWrapper);
 
         List<MenuVo> menuInfo = new ArrayList<>();
-        for (SystemMenu e : menuList) {
+        for (SysMenu e : menuList) {
             MenuVo menuVO = new MenuVo();
             menuVO.setId(e.getId());
             menuVO.setPid(e.getPid());

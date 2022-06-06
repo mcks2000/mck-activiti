@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mck.activiti.common.entity.PageBean;
 import com.mck.activiti.common.entity.SysConstant;
 import com.mck.activiti.model.entity.ProcessLog;
+import com.mck.activiti.model.entity.SysUser;
 import com.mck.activiti.model.vo.TaskVo;
-import com.mck.activiti.model.entity.User;
 import com.mck.activiti.mapper.TaskMapper;
 import com.mck.activiti.service.ILogService;
 import com.mck.activiti.service.ITaskProceService;
@@ -43,8 +43,8 @@ public class TaskProceServiceImpl implements ITaskProceService {
     @Override
     public Page<TaskVo> queryMyTask(PageBean pageBean) {
         Page<TaskVo> page = new Page<>(pageBean.getPage(), pageBean.getLimit());
-        User currentUser = userService.getCurrentUser();
-        return taskMapper.queryMyTask(page, currentUser.getUserId());
+        SysUser currentSysUser = userService.getCurrentUser();
+        return taskMapper.queryMyTask(page, currentSysUser.getUserId());
     }
 
     @Override
@@ -71,13 +71,13 @@ public class TaskProceServiceImpl implements ITaskProceService {
 
         //记录日志
         ProcessLog bean = new ProcessLog();
-        User user = userService.getCurrentUser();
+        SysUser sysUser = userService.getCurrentUser();
         bean.setOrderNo(Long.valueOf(taskVo.getVacationId()));
         bean.setTaskId(taskVo.getTaskId());
         bean.setTaskName(taskVo.getTaskName());
         bean.setTaskKey(taskVo.getTaskDefKey());
         bean.setApprovStatu(spState);
-        bean.setOperValue(user.getUserName() + spContext + ",审批意见:" + taskVo.getRemark());
+        bean.setOperValue(sysUser.getUserName() + spContext + ",审批意见:" + taskVo.getRemark());
         logService.insertLog(bean);
 
     }

@@ -11,7 +11,7 @@ import com.mck.activiti.common.util.CommonUtil;
 import com.mck.activiti.mapper.VacationOrderMapper;
 import com.mck.activiti.model.entity.FlowAudit;
 import com.mck.activiti.model.entity.ProcessLog;
-import com.mck.activiti.model.entity.User;
+import com.mck.activiti.model.entity.SysUser;
 import com.mck.activiti.model.entity.VacationOrder;
 import com.mck.activiti.model.vo.VacationOrderVo;
 import com.mck.activiti.service.IFlowInfoService;
@@ -53,22 +53,22 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
     public void insertVacationOrder(VacationOrder vacationOrder) {
         //记录日志
         ProcessLog bean = new ProcessLog();
-        User currentUser = userService.getCurrentUser();
+        SysUser currentSysUser = userService.getCurrentUser();
         if (null != vacationOrder.getVacationId()) {//更新
             vacationOrderMapper.updateById(vacationOrder);
             bean.setOrderNo(vacationOrder.getVacationId());
-            bean.setOperValue(currentUser.getUserName() + "修改审批单");
+            bean.setOperValue(currentSysUser.getUserName() + "修改审批单");
         } else {
             long orderNo = CommonUtil.genId();
             bean.setOrderNo(orderNo);
             vacationOrder.setVacationId(orderNo);
             vacationOrder.setVacationState(0);
-            vacationOrder.setUserId(currentUser.getUserId());
+            vacationOrder.setUserId(currentSysUser.getUserId());
             vacationOrder.setCreateTime(DateUtil.date());
             vacationOrder.setSystemCode("1001");
             vacationOrder.setBusiType("2001");
             vacationOrderMapper.insert(vacationOrder);
-            bean.setOperValue(currentUser.getUserName() + "填写审批单");
+            bean.setOperValue(currentSysUser.getUserName() + "填写审批单");
         }
 
         logService.insertLog(bean);
@@ -77,8 +77,8 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
     @Override
     public Page<VacationOrderVo> queryVacationOrder(PageBean pageBean) {
         Page<VacationOrder> page = new Page<>(pageBean.getPage(), pageBean.getLimit());
-        User currentUser = userService.getCurrentUser();
-        Page<VacationOrderVo> vacationOrderPage = vacationOrderMapper.queryVacationOrder(page, currentUser.getUserId());
+        SysUser currentSysUser = userService.getCurrentUser();
+        Page<VacationOrderVo> vacationOrderPage = vacationOrderMapper.queryVacationOrder(page, currentSysUser.getUserId());
         return vacationOrderPage;
     }
 
@@ -104,12 +104,12 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
         boolean res = true;
         //匹配流程并指定申请人
         Map<String, Object> variables = new HashMap<>();
-        User currentUser = userService.getCurrentUser();
+        SysUser currentSysUser = userService.getCurrentUser();
         String processId = "";
         //匹配流程之前查询是否已经匹配过
         FlowAudit flowAudit = flowInfoService.queryFlowAuditByOrderNo(vacationId);
         if (ObjectUtil.isNull(flowAudit)) {
-            variables.put("applyuser", currentUser.getUserId());
+            variables.put("applyuser", currentSysUser.getUserId());
             processId = flowInfoService.resolve(vacationId, variables);
         } else {
             processId = String.valueOf(flowAudit.getProcessId());
@@ -132,13 +132,13 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
 
         //记录日志
         ProcessLog bean = new ProcessLog();
-        User user = userService.queryUserById(currentUser.getParentUserId());
+        SysUser sysUser = userService.queryUserById(currentSysUser.getParentUserId());
         bean.setOrderNo(vacationId);
         bean.setTaskId(task.getId());
         bean.setTaskName(task.getName());
         bean.setTaskKey(task.getTaskDefinitionKey());
         bean.setApprovStatu("submitApply");
-        bean.setOperValue(currentUser.getUserName() + "提交申请,待【" + user.getUserName() + "】审核");
+        bean.setOperValue(currentSysUser.getUserName() + "提交申请,待【" + sysUser.getUserName() + "】审核");
         logService.insertLog(bean);
         return res;
     }
@@ -148,12 +148,12 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
     public void delVacation(Long vacationId) {
         this.updateState(vacationId, SysConstant.OBSOLETE_STATE);
         //记录日志
-        User currentUser = userService.getCurrentUser();
+        SysUser currentSysUser = userService.getCurrentUser();
         ProcessLog bean = new ProcessLog();
-        User user = userService.queryUserById(currentUser.getParentUserId());
+        SysUser sysUser = userService.queryUserById(currentSysUser.getParentUserId());
         bean.setOrderNo(vacationId);
         bean.setApprovStatu("DELETE");
-        bean.setOperValue(currentUser.getUserName() + "删除审批单");
+        bean.setOperValue(currentSysUser.getUserName() + "删除审批单");
         logService.insertLog(bean);
     }
 

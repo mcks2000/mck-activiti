@@ -1,7 +1,7 @@
 package com.mck.activiti.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mck.activiti.model.entity.SystemMenu;
+import com.mck.activiti.model.entity.SysMenu;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,6 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2020-05-28
  */
 @Mapper
-public interface SystemMenuMapper extends BaseMapper<SystemMenu> {
+public interface SystemMenuMapper extends BaseMapper<SysMenu> {
 
 }

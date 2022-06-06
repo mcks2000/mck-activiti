@@ -1,7 +1,7 @@
 package com.mck.activiti.listener;
 
 import com.mck.activiti.common.util.SpringUtils;
-import com.mck.activiti.model.entity.User;
+import com.mck.activiti.model.entity.SysUser;
 import com.mck.activiti.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.delegate.DelegateTask;
@@ -62,8 +62,8 @@ public class TaskApprovListener implements TaskListener {
 
 
         IUserService userService = SpringUtils.getBean(IUserService.class);
-        User currentUser = userService.getCurrentUser();
-        delegateTask.setAssignee(currentUser.getParentUserId());
+        SysUser currentSysUser = userService.getCurrentUser();
+        delegateTask.setAssignee(currentSysUser.getParentUserId());
         log.info("执行审批任务监听器ID:{},办理人:{}", delegateTask.getId(), delegateTask.getAssignee());
     }
 }

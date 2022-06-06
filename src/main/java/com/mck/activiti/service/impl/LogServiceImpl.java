@@ -4,7 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mck.activiti.common.util.CommonUtil;
 import com.mck.activiti.model.entity.ProcessLog;
-import com.mck.activiti.model.entity.User;
+import com.mck.activiti.model.entity.SysUser;
 import com.mck.activiti.mapper.ProcessLogMapper;
 import com.mck.activiti.service.ILogService;
 import com.mck.activiti.service.IUserService;
@@ -32,10 +32,10 @@ public class LogServiceImpl implements ILogService {
     @Override
     @Transactional
     public void insertLog(ProcessLog processLog) {
-        User currentUser = userService.getCurrentUser();
+        SysUser currentSysUser = userService.getCurrentUser();
         processLog.setLogId(CommonUtil.genId());
         processLog.setCreateTime(DateUtil.date());
-        processLog.setOperId(currentUser.getUserName());
+        processLog.setOperId(currentSysUser.getUserName());
         processLogMapper.insert(processLog);
     }
 
