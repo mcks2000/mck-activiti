@@ -56,12 +56,12 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
         User currentUser = userService.getCurrentUser();
         if (null != vacationOrder.getVacationId()) {//更新
             vacationOrderMapper.updateById(vacationOrder);
-            bean.setVacationId(vacationOrder.getVacationId());
+            bean.setOrderNo(vacationOrder.getVacationId());
             bean.setOperValue(currentUser.getUserName() + "修改审批单");
         } else {
-            long vacationId = CommonUtil.genId();
-            bean.setVacationId(vacationId);
-            vacationOrder.setVacationId(vacationId);
+            long orderNo = CommonUtil.genId();
+            bean.setOrderNo(orderNo);
+            vacationOrder.setVacationId(orderNo);
             vacationOrder.setVacationState(0);
             vacationOrder.setUserId(currentUser.getUserId());
             vacationOrder.setCreateTime(DateUtil.date());
@@ -107,7 +107,7 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
         User currentUser = userService.getCurrentUser();
         String flowId = "";
         //匹配流程之前查询是否已经匹配过
-        FlowMain flowMain = flowInfoService.queryFlowMainById(vacationId);
+        FlowMain flowMain = flowInfoService.queryFlowMainByOrderNo(vacationId);
         if (ObjectUtil.isNull(flowMain)) {
             variables.put("applyuser", currentUser.getUserId());
             flowId = flowInfoService.resolve(vacationId, variables);
@@ -133,7 +133,7 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
         //记录日志
         ProcessLog bean = new ProcessLog();
         User user = userService.queryUserById(currentUser.getParentUserId());
-        bean.setVacationId(vacationId);
+        bean.setOrderNo(vacationId);
         bean.setTaskId(task.getId());
         bean.setTaskName(task.getName());
         bean.setTaskKey(task.getTaskDefinitionKey());
@@ -151,7 +151,7 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
         User currentUser = userService.getCurrentUser();
         ProcessLog bean = new ProcessLog();
         User user = userService.queryUserById(currentUser.getParentUserId());
-        bean.setVacationId(vacationId);
+        bean.setOrderNo(vacationId);
         bean.setApprovStatu("DELETE");
         bean.setOperValue(currentUser.getUserName() + "删除审批单");
         logService.insertLog(bean);

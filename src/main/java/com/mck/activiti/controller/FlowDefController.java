@@ -1,5 +1,6 @@
 package com.mck.activiti.controller;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * @Description: 流程规则管理
+ * @Description:
  * @Author: mck
  * @Date: 2022/5/24 10:17
  **/
@@ -63,11 +64,6 @@ public class FlowDefController {
     }
 
 
-    /**
-     * @Description 新增流程规则
-     * @param flowRule
-     * @return
-     */
     @PostMapping("submitFlowRule")
     @ResponseBody
     public ResponseResult<String> submitFlowRule(@RequestBody FlowRule flowRule) {

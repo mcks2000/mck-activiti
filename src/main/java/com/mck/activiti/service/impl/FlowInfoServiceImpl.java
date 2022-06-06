@@ -74,7 +74,7 @@ public class FlowInfoServiceImpl implements IFlowInfoService {
     public void insertFlowDef(FlowDef flowDef) {
         String flowCode = flowDef.getFlowCode();
         QueryWrapper<FlowDef> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("flow_code", flowCode);
+        queryWrapper.eq("FLOW_CODE", flowCode);
         Integer count = flowDefMapper.selectCount(queryWrapper);
         if (count <= 0) {
             flowDef.setDefId(CommonUtil.genId());
@@ -138,7 +138,7 @@ public class FlowInfoServiceImpl implements IFlowInfoService {
         FlowDef flowDef = this.queryFlowDef(currFlowRule.getDefId());
         //记录流程主表信息
         FlowMain flowMain = new FlowMain();
-        flowMain.setVacationId(orderId);
+        flowMain.setOrderNo(orderId);
         flowMain.setFlowDefId(flowDef.getFlowCode());
         flowMain.setRuleId(currFlowRule.getRuleId());
         this.insertFlowMain(flowMain);
@@ -151,7 +151,7 @@ public class FlowInfoServiceImpl implements IFlowInfoService {
     public String runFlow(FlowMain flowMain, Map<String, Object> variables) {
         String flowId = "";
         try {
-            log.info("-------->启动流程开始:{}", flowMain.getVacationId());
+            log.info("-------->启动流程开始:{}", flowMain.getOrderNo());
             ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(flowMain.getFlowDefId(), String.valueOf(flowMain.getFlowInstId()), variables);
             flowId = processInstance.getProcessInstanceId();
             log.info("------>流程启动结束flowId:{}", flowId);
@@ -181,9 +181,9 @@ public class FlowInfoServiceImpl implements IFlowInfoService {
     }
 
     @Override
-    public FlowMain queryFlowMainById(Long vacationId) {
+    public FlowMain queryFlowMainByOrderNo(Long orderNo) {
         QueryWrapper<FlowMain> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("vacation_id", vacationId);
+        queryWrapper.eq("order_no", orderNo);
         return flowMainMapper.selectOne(queryWrapper);
     }
 

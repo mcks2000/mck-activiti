@@ -40,9 +40,9 @@ public class LogServiceImpl implements ILogService {
     }
 
     @Override
-    public List<ProcessLog> queryOperLog(Long vacationId) {
+    public List<ProcessLog> queryOperLog(Long orderNo) {
         QueryWrapper<ProcessLog> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("vacation_id", vacationId);
+        queryWrapper.eq("order_no", orderNo);
         queryWrapper.orderByDesc("create_time");
         return processLogMapper.selectList(queryWrapper);
     }

@@ -32,7 +32,7 @@ public class FlowMain implements Serializable {
     /**
      * 审批单号
      */
-    private Long vacationId;
+    private Long orderNo;
 
     /**
      * 流程定义编码(创建流程时设置的)

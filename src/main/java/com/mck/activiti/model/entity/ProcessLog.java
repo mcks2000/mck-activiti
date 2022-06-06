@@ -32,7 +32,7 @@ public class ProcessLog implements Serializable {
     /**
      * 审批单ID
      */
-    private Long vacationId;
+    private Long orderNo;
 
     /**
      * 任务ID

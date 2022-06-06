@@ -11,6 +11,8 @@ import lombok.Data;
 @Data
 public class VacationOrderVo extends VacationOrder {
 
+    private String orderNo;
+
     private String userName;
 
     private String flowId;

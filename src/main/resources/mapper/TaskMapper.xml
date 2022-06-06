@@ -22,7 +22,7 @@
             tf_flow_main t2,
             ACT_RU_TASK t3
         WHERE
-            t.vacation_id = t2.vacation_id
+            t.vacation_id = t2.order_no
         AND t2.flow_id = t3.PROC_INST_ID_
         AND t.vacation_state = 1
         AND t3.ASSIGNEE_ = #{userId}
@@ -46,7 +46,7 @@
             tf_flow_main t2,
             ACT_RU_TASK t3
             WHERE
-            t.vacation_id = t2.vacation_id
+            t.vacation_id = t2.order_no
             AND t2.flow_id = t3.PROC_INST_ID_
             and t.vacation_id = #{vacationId}
     </select>

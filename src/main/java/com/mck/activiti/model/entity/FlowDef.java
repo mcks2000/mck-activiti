@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * @Description: 流程定义表 flow definition
+ * @Description: 流程定义表
  * @Author mck
  * @since 2020-06-01
  */
