@@ -8,7 +8,7 @@ layui.use(['form','table'],function () {
         url: '/vacation/queryList',
         toolbar: '#toolbarDemo',
         cols: [[
-            {field: 'orderNo', orderNo: '请假单编号'},
+            {field: 'vacationId', title: '请假单编号'},
             {field: 'userName', title: '请假人'},
             {field: 'startTime', title: '请假开始时间'},
             {field: 'endTime', title: '请假结束时间'},
@@ -65,7 +65,7 @@ layui.use(['form','table'],function () {
         var data = obj.data;
         if (obj.event === 'submit') {//提交申请
             layer.confirm('确认提交申请吗?', function (index) {
-                var vacationId = data.orderNo;
+                var vacationId = data.vacationId;
                 $.ajax({
                     beforeSend: function() {
                         layer.load(2);
@@ -101,7 +101,7 @@ layui.use(['form','table'],function () {
                 maxmin:true,
                 shadeClose: true,
                 area: ['80%', '80%'],
-                content: '/vacation/provalDetail?flowId='+data.flowId + '&orderNo='+data.orderNo,
+                content: '/vacation/provalDetail?flowId='+data.flowId + '&vacationId='+data.vacationId,
             });
             $(window).on("resize", function () {
                 layer.full(index);
@@ -114,7 +114,7 @@ layui.use(['form','table'],function () {
                 maxmin:true,
                 shadeClose: true,
                 area: ['80%', '80%'],
-                content: '/vacation/toAdd?orderNo='+data.orderNo,
+                content: '/vacation/toAdd?vacationId='+data.vacationId,
             });
         } else if (obj.event === 'delete') {
             layer.confirm('确定删除行么', function (index) {
@@ -126,7 +126,7 @@ layui.use(['form','table'],function () {
                     type: 'POST',
                     url: '/vacation/delVacation',
                     data: {
-                        vacationId: data.orderNo
+                        vacationId: data.vacationId
                     },
                     dataType: 'json',
                     success: function (res) {

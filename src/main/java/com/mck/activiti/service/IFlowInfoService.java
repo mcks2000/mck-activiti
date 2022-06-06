@@ -88,10 +88,10 @@ public interface IFlowInfoService {
     /**
      * 根据审批单号查询匹配流程信息
      *
-     * @param orderNo
+     * @param vacationId
      * @return
      */
-    FlowMain queryFlowMainByOrderNo(Long orderNo);
+    FlowMain queryFlowMainById(Long vacationId);
 
     /**
      * 根据主键查询

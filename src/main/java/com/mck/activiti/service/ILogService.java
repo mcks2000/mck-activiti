@@ -21,8 +21,8 @@ public interface ILogService {
     /**
      * 查询历史单操作记录
      *
-     * @param orderNo
+     * @param vacationId
      * @return
      */
-    List<ProcessLog> queryOperLog(Long orderNo);
+    List<ProcessLog> queryOperLog(Long vacationId);
 }

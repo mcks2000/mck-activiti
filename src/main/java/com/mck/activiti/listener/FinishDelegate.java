@@ -27,14 +27,14 @@ public class FinishDelegate implements JavaDelegate {
         IVacationOrderService vacationOrderService = SpringUtils.getBean(IVacationOrderService.class);
         IFlowInfoService flowInfoService = SpringUtils.getBean(IFlowInfoService.class);
         FlowMain flowMain = flowInfoService.queryFlowById(Long.valueOf(flowInstId));
-        vacationOrderService.updateState(flowMain.getOrderNo(), SysConstant.COMPLETED_STATE);
+        vacationOrderService.updateState(flowMain.getVacationId(), SysConstant.COMPLETED_STATE);
         //记录日志
         ILogService logService = SpringUtils.getBean(ILogService.class);
         IUserService userService = SpringUtils.getBean(IUserService.class);
         ProcessLog bean = new ProcessLog();
         User user = userService.getCurrentUser();
         User userInfo = userService.queryUserById(user.getUserId());
-        bean.setOrderNo(flowMain.getOrderNo());
+        bean.setVacationId(flowMain.getVacationId());
         bean.setTaskName("审批完成");
         bean.setTaskKey("finish_end");
         bean.setApprovStatu("finish_end");

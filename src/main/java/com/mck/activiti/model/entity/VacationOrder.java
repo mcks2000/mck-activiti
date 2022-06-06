@@ -51,6 +51,8 @@ public class VacationOrder implements Serializable {
 
     /**
      * 请假类型
+     * 对应 sys_dict 中的 dict_type_code = 30
+     * 对应 sys_dict_type 中的 dict_type = 30
      */
     private Integer vacationType;
 
@@ -66,11 +68,15 @@ public class VacationOrder implements Serializable {
 
     /**
      * 系统来源
+     * 对应 sys_dict 中的 dict_type_code = 10
+     * 对应 sys_dict_type 中的 dict_type = 10
      */
     private String systemCode;
 
     /**
      * 业务类型
+     * 对应 sys_dict 中的 dict_type_code = 20
+     * 对应 sys_dict_type 中的 dict_type = 20
      */
     private String busiType;
 

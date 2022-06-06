@@ -48,11 +48,11 @@ public class VacationOrderController {
 
 
     @RequestMapping("toAdd")
-    public String toAdd(Model model, @RequestParam(value = "orderNo", required = false) String orderNo) {
+    public String toAdd(Model model, @RequestParam(value = "vacationId", required = false) String vacationId) {
         List<SysDict> typeList = systemService.querySysDictInfo(SysConstant.VACATION_TYPE);
         model.addAttribute("typeList", typeList);
-        if (StrUtil.isNotBlank(orderNo)) {//编辑
-            VacationOrder vacationOrder = vacationOrderService.queryVacation(Long.valueOf(orderNo));
+        if (StrUtil.isNotBlank(vacationId)) {//编辑
+            VacationOrder vacationOrder = vacationOrderService.queryVacation(Long.valueOf(vacationId));
             model.addAttribute("vacationOrder", vacationOrder);
             return "page/editVacation";
         }
@@ -64,12 +64,12 @@ public class VacationOrderController {
      *
      * @param model
      * @param flowId
-     * @param orderNo
+     * @param vacationId
      * @return
      */
     @RequestMapping("provalDetail")
-    public String provalDetail(Model model, @RequestParam("flowId") String flowId, @RequestParam("orderNo") String orderNo) {
-        List<ProcessLog> logList = logService.queryOperLog(Long.valueOf(orderNo));
+    public String provalDetail(Model model, @RequestParam("flowId") String flowId, @RequestParam("vacationId") String vacationId) {
+        List<ProcessLog> logList = logService.queryOperLog(Long.valueOf(vacationId));
         model.addAttribute("logList", logList);
         return "/page/viewFlow";
     }

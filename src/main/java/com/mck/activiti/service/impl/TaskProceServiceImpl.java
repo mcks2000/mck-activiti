@@ -72,7 +72,7 @@ public class TaskProceServiceImpl implements ITaskProceService {
         //记录日志
         ProcessLog bean = new ProcessLog();
         User user = userService.getCurrentUser();
-        bean.setOrderNo(Long.valueOf(taskVo.getVacationId()));
+        bean.setVacationId(Long.valueOf(taskVo.getVacationId()));
         bean.setTaskId(taskVo.getTaskId());
         bean.setTaskName(taskVo.getTaskName());
         bean.setTaskKey(taskVo.getTaskDefKey());

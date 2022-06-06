@@ -2275,7 +2275,7 @@ INSERT INTO `t_vacation_order` VALUES (1531490679702683648, '10', '2022-06-01', 
 DROP TABLE IF EXISTS `tf_flow_main`;
 CREATE TABLE `tf_flow_main`  (
   `flow_inst_id` bigint(0) NOT NULL COMMENT '主键',
-  `order_no` bigint(0) NULL DEFAULT NULL COMMENT '审批单号',
+  `vacation_id` bigint(0) NULL DEFAULT NULL COMMENT '审批单号',
   `flow_def_id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '流程定义编码(创建流程时设置的)',
   `flow_id` bigint(0) NULL DEFAULT NULL COMMENT '流程ID(启动流程时生成的编码)',
   `rule_id` bigint(0) NULL DEFAULT NULL COMMENT '流程规则ID',
@@ -2351,7 +2351,7 @@ INSERT INTO `tf_flow_main` VALUES (1531490695682981888, 1531490679702683648, 'LC
 DROP TABLE IF EXISTS `tl_process_log`;
 CREATE TABLE `tl_process_log`  (
   `log_id` bigint(0) NOT NULL COMMENT '日志ID',
-  `order_no` bigint(0) NOT NULL COMMENT '审批单ID',
+  `vacation_id` bigint(0) NOT NULL COMMENT '审批单ID',
   `task_id` bigint(0) NULL DEFAULT NULL COMMENT '任务ID',
   `task_key` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务key',
   `task_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务名称',
