@@ -23,6 +23,7 @@
         <mybatis.plus.boot.starter.version>3.3.1</mybatis.plus.boot.starter.version>
         <activiti.version>5.22.0</activiti.version>
         <druid-starter>1.1.22</druid-starter>
+        <orika-core-version>1.5.4</orika-core-version>
     </properties>
 
     <dependencies>
@@ -72,6 +73,12 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>
+        <!-- 实体（Bean）拷贝 -->
+        <dependency>
+            <groupId>ma.glasnost.orika</groupId>
+            <artifactId>orika-core</artifactId>
+        </dependency>
+
         <!-- Activiti启动器 需要排除mybatis依赖 -->
         <dependency>
             <groupId>org.activiti</groupId>
@@ -154,6 +161,12 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <!-- 实体（Bean）拷贝 -->
+            <dependency>
+                <groupId>ma.glasnost.orika</groupId>
+                <artifactId>orika-core</artifactId>
+                <version>${orika-core-version}</version>
             </dependency>
 
             <!-- Activiti启动器 需要排除mybatis依赖 -->
