@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * @Description: 系统菜单表 Mapper 接口
  * @Author mck
- * @since 2020-05-28
+ * @Date 2020-05-28
  */
 @Mapper
 public interface SysMenuMapper extends BaseMapper<SysMenu> {

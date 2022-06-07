@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * @Description:流程定义表 Mapper 接口
  * @Author mck
- * @since 2020-06-01
+ * @Date 2020-06-01
  */
 @Mapper
 public interface FlowDefMapper extends BaseMapper<FlowDef> {

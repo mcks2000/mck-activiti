@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @Description: 流程规则表
  * @Author mck
- * @since 2020-06-01
+ * @Date 2020-06-01
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

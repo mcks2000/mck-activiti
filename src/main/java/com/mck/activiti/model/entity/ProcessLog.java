@@ -3,6 +3,7 @@ package com.mck.activiti.model.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mck.activiti.common.entity.BaseObject;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -13,15 +14,13 @@ import java.util.Date;
 /**
  * @Description: 流程审批日志表
  * @Author mck
- * @since 2020-06-04
+ * @Date 2020-06-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_process_log")
-public class ProcessLog implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ProcessLog extends BaseObject {
 
     /**
      * 日志ID
@@ -64,15 +63,15 @@ public class ProcessLog implements Serializable {
      */
     private String operValue;
 
-    /**
-     * 操作时间
-     */
-    private Date createTime;
-
-    /**
-     * 备注
-     */
-    private String remark;
+//    /**
+//     * 操作时间
+//     */
+//    private Date createTime;
+//
+//    /**
+//     * 备注
+//     */
+//    private String remark;
 
 
 }

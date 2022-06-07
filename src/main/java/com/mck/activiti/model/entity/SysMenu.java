@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * @Description: 系统菜单表
  * @Author mck
- * @since 2020-05-28
+ * @Date 2020-05-28
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

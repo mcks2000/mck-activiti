@@ -12,7 +12,7 @@ import java.io.Serializable;
 /**
  * @Description: 字典类型值表
  * @Author mck
- * @since 2020-06-01
+ * @Date 2020-06-01
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

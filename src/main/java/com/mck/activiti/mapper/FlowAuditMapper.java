@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * @Description: 流程与审批单表关联表 Mapper 接口
  * @Author mck
- * @since 2020-06-02
+ * @Date 2020-06-02
  */
 @Mapper
 public interface FlowAuditMapper extends BaseMapper<FlowAudit> {

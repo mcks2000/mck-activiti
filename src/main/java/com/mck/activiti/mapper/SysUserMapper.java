@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @Description: Mapper 接口
  * @Author mck
- * @since 2020-05-18
+ * @Date 2020-05-18
  */
 @Repository
 @Mapper

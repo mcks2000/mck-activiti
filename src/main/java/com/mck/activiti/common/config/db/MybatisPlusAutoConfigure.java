@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author mck
  * @Description: mybatis-plus自动配置
- * @date 2022/5/31
+ * @Date 2022/5/31
  */
 
 @Configuration

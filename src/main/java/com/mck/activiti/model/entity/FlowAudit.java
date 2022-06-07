@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * @Description: 流程与审批单表关联表
  * @Author mck
- * @since 2020-06-02
+ * @Date 2020-06-02
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

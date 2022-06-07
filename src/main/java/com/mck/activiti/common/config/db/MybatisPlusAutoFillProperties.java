@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * @author mck
  * @Description: mybatis-plus 配置
- * @date 2022/5/31
+ * @Date 2022/5/31
  */
 @Setter
 @Getter

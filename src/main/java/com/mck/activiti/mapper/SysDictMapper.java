@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @Description: 字典类型值表 Mapper 接口
  * @Author mck
- * @since 2020-06-01
+ * @Date 2020-06-01
  */
 @Mapper
 public interface SysDictMapper extends BaseMapper<SysDict> {

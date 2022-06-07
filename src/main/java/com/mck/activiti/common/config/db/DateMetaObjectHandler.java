@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * @author mck
  * @Description: 自定义填充公共字段
- * @date 2022/5/31
+ * @Date 2022/5/31
  */
 public class DateMetaObjectHandler implements MetaObjectHandler {
     private final MybatisPlusAutoFillProperties autoFillProperties;

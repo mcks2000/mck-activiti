@@ -10,13 +10,12 @@ import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
- * 基础类，往db插入数据的时候使用，在具体业务中如出现类似意思的字段，需区分开来
- *
- * @Author: minp
- * @Date: 2022/5/24 10:17
+ * @Description: 基础类，往db插入数据的时候使用，在具体业务中如出现类似意思的字段，需区分开来
+ * @Author mck
+ * @Date 2022-06-07
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -30,10 +29,10 @@ public class BaseObject implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime createDate;
+    private Date createTime;
 
     /**
-     * 创建者
+     * 操作者用户id
      */
     @TableField(fill = FieldFill.INSERT)
     private String createBy;
@@ -44,16 +43,16 @@ public class BaseObject implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime updateDate;
+    private Date updateTime;
 
     /**
-     * 更新者
+     * 更新者用户id
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
 
     /**
-     * 说明
+     * 备注
      */
     private String remark;
 

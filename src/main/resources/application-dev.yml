@@ -46,12 +46,5 @@ spring:
     password: 123456
     timeout: 3s
     database: 6
-# 配置slq打印日志
-mybatis-plus:
-  configuration:
-    log-impl: com.mck.activiti.common.config.db.MyStdOutImpl
-  mapper-locations: classpath*:/mapper/*.xml
-  #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.mck.activiti.model.entity
 
 

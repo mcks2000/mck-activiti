@@ -6,7 +6,7 @@ import com.mck.activiti.model.entity.SysUser;
 /**
  * @Description: 服务类
  * @Author mck
- * @since 2020-05-18
+ * @Date 2020-05-18
  */
 public interface IUserService {
 
