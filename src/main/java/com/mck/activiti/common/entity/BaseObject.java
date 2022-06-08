@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @Description: 基础类，往db插入数据的时候使用，在具体业务中如出现类似意思的字段，需区分开来
@@ -30,7 +30,7 @@ public class BaseObject implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     @DateTimeFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
     @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "GMT+8")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     /**
      * 操作者用户id
@@ -44,7 +44,7 @@ public class BaseObject implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @DateTimeFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
     @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "GMT+8")
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     /**
      * 更新者用户id

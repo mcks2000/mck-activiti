@@ -1,9 +1,12 @@
 package com.mck.activiti.model.vo;
 
+import cn.hutool.core.date.DatePattern;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @Description:
@@ -71,7 +74,9 @@ public class TaskVo {
     /**
      * 任务创建时间
      */
-    private Date createTime;
+    @DateTimeFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "GMT+8")
+    private LocalDateTime createTime;
 
     /**
      * 审批类型 0:同意 1:驳回

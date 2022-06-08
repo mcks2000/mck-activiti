@@ -43,7 +43,6 @@ public class ScheduledTaskServiceImpl implements IScheduledTaskService {
             this.updateTask(scheduledTask);
         } else { //新增
             scheduledTask.setTaskId(String.valueOf(CommonUtil.genId()));
-            scheduledTask.setCreateTime(DateUtil.date());
             scheduledTaskMapper.insert(scheduledTask);
             if (scheduledTask.getTaskState() == 0) {
                 log.info("----------->添加任务到线程....");
@@ -87,7 +86,6 @@ public class ScheduledTaskServiceImpl implements IScheduledTaskService {
         ScheduledTask bean = this.queryScheduled(scheduledTask.getTaskId());
 
         bean.setTaskState(scheduledTask.getTaskState());
-        bean.setUpdateTime(DateUtil.date());
         scheduledTaskMapper.updateById(bean);
         //移除任务
         SchedulingRunnable task = new SchedulingRunnable(bean.getClassName(), bean.getMethodName(), bean.getReqParams());

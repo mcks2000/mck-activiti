@@ -34,7 +34,6 @@ public class LogServiceImpl implements ILogService {
     public void insertLog(ProcessLog processLog) {
         SysUser currentSysUser = userService.getCurrentUser();
         processLog.setLogId(CommonUtil.genId());
-        processLog.setCreateTime(DateUtil.date());
         processLog.setOperId(currentSysUser.getUserName());
         processLogMapper.insert(processLog);
     }

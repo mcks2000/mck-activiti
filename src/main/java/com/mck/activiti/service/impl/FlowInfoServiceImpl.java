@@ -167,7 +167,6 @@ public class FlowInfoServiceImpl implements IFlowInfoService {
     public void insertFlowAudit(FlowAudit flowAudit) {
         flowAudit.setFlowAuditId(CommonUtil.genId());
         flowAudit.setFlowState(1);
-        flowAudit.setCreateTime(DateUtil.date());
         flowAuditMapper.insert(flowAudit);
     }
 

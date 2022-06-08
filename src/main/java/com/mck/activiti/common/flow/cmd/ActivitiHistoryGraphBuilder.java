@@ -13,6 +13,7 @@ import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.PvmActivity;
 import org.activiti.engine.impl.pvm.PvmTransition;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
+import org.joda.time.LocalDateTime;
 
 import java.util.*;
 
@@ -134,7 +135,7 @@ public class ActivitiHistoryGraphBuilder {
                 continue;
             }
 
-            log.debug("current activity start time : {}", new Date(
+            log.debug("current activity start time : {}", new LocalDateTime(
                     currentStartTime));
             log.debug("nestest activity end time : {}",
                     visitiedHistoryActivityInstance.getEndTime());

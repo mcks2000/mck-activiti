@@ -64,7 +64,6 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
             vacationOrder.setVacationId(orderNo);
             vacationOrder.setVacationState(0);
             vacationOrder.setUserId(currentSysUser.getUserId());
-            vacationOrder.setCreateTime(DateUtil.date());
             vacationOrder.setSystemCode("1001");
             vacationOrder.setBusiType("2001");
             vacationOrderMapper.insert(vacationOrder);
