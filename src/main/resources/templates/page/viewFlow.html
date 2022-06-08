@@ -21,7 +21,7 @@
         <i class="layui-icon layui-timeline-axis"></i>
         <div class="layui-timeline-content layui-text">
             <div class="layui-timeline-title"
-                 th:text="|${#dates.format(log.createTime,'yyyy-MM-dd hh:ss:mm')}&nbsp;&nbsp;${log.operValue}|"></div>
+                 th:text="|${#temporals.format(log.createTime,'yyyy-MM-dd hh:ss:mm')}&nbsp;&nbsp;${log.operValue}|"></div>
         </div>
     </li>
 </ul>

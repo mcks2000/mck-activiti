@@ -124,6 +124,7 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
         //更新审批单状态
         this.updateState(vacationId, SysConstant.REVIEW_STATE);
 
+        // TODO 处理parentId 为空的逻辑
         //记录日志
         ProcessLog bean = new ProcessLog();
         SysUser sysUser = userService.queryUserById(currentSysUser.getParentUserId());
