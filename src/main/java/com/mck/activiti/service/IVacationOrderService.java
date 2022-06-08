@@ -2,6 +2,7 @@ package com.mck.activiti.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mck.activiti.common.entity.PageBean;
+import com.mck.activiti.common.service.ISuperService;
 import com.mck.activiti.model.entity.VacationOrder;
 import com.mck.activiti.model.vo.VacationOrderVo;
 
@@ -10,7 +11,7 @@ import com.mck.activiti.model.vo.VacationOrderVo;
  * @Author: mck
  * @Date: 2022/5/24 10:17
  **/
-public interface IVacationOrderService {
+public interface IVacationOrderService extends ISuperService<VacationOrder> {
 
     /**
      * 提交请假申请

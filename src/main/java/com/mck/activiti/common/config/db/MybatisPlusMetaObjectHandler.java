@@ -1,20 +1,20 @@
 package com.mck.activiti.common.config.db;
 
-import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.mck.activiti.common.util.DateFormatUtil;
 import org.apache.ibatis.reflection.MetaObject;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author mck
  * @Description: 自定义填充公共字段
  * @Date 2022/5/31
  */
-public class DateMetaObjectHandler implements MetaObjectHandler {
+public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
     private final MybatisPlusAutoFillProperties autoFillProperties;
 
-    public DateMetaObjectHandler(MybatisPlusAutoFillProperties autoFillProperties) {
+    public MybatisPlusMetaObjectHandler(MybatisPlusAutoFillProperties autoFillProperties) {
         this.autoFillProperties = autoFillProperties;
     }
 
@@ -39,10 +39,8 @@ public class DateMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void insertFill(MetaObject metaObject) {
-        Date date = DateUtil.date();
-        this.setFieldValByName(autoFillProperties.getCreateTimeField(), date, metaObject);
-        this.setFieldValByName(autoFillProperties.getUpdateTimeField(), date, metaObject);
-        this.setFieldValByName(autoFillProperties.getDelFlagField(), "0",metaObject);
+        this.setFieldValByName(autoFillProperties.getCreateTimeField(), DateFormatUtil.getCurrentDateTime(), metaObject);
+        this.setFieldValByName(autoFillProperties.getDelFlagField(), 0,metaObject);
 }
 
     /**
@@ -50,6 +48,6 @@ public class DateMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName(autoFillProperties.getUpdateTimeField(), DateUtil.date(), metaObject);
+        this.setFieldValByName(autoFillProperties.getUpdateTimeField(), DateFormatUtil.getCurrentDateTime(), metaObject);
     }
 }

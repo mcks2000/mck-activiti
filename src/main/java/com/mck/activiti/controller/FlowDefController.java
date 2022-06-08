@@ -3,7 +3,7 @@ package com.mck.activiti.controller;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mck.activiti.common.config.BizException;
+import com.mck.activiti.common.config.exception.BizException;
 import com.mck.activiti.common.entity.*;
 import com.mck.activiti.model.entity.FlowDef;
 import com.mck.activiti.model.entity.FlowAudit;

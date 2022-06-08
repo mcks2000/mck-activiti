@@ -13,7 +13,7 @@ spring:
       write-numbers-as-strings: true # 将数字类型全部转化为字符串  修复Long类型太长，而Java序列化JSON丢失精度问题
 
 server:
-  port: 7004
+  port: 7010
   activiti:
     db-history-used: true
     history-level: full

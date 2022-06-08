@@ -1,6 +1,7 @@
 package com.mck.activiti.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.mck.activiti.common.mapper.SuperMapper;
 import com.mck.activiti.model.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Mapper
-public interface SysUserMapper extends BaseMapper<SysUser> {
+public interface SysUserMapper extends SuperMapper<SysUser> {
 
 }

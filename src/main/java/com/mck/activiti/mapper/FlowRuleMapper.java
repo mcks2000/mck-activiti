@@ -1,6 +1,7 @@
 package com.mck.activiti.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.mck.activiti.common.mapper.SuperMapper;
 import com.mck.activiti.model.entity.FlowRule;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,6 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @Date 2020-06-01
  */
 @Mapper
-public interface FlowRuleMapper extends BaseMapper<FlowRule> {
+public interface FlowRuleMapper extends SuperMapper<FlowRule> {
 
 }

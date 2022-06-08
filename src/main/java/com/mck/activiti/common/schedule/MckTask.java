@@ -4,12 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- * @Description: 测试定时任务
+ * @Description: 工作流定时任务
  * @Author: mck
  * @Date: 2022/5/24 10:17
  **/
 @Slf4j
-@Component("testMckTask")
+@Component("mckActivitiTask")
 public class MckTask {
 
     public void taskWithParams(String params) {

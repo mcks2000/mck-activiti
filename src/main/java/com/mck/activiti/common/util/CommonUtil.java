@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @Description:
+ * @Description: 通用工具类
  * @Author: mck
  * @Date: 2022/5/24 10:17
  **/
@@ -24,11 +24,10 @@ public class CommonUtil {
     }
 
     /**
-     * 匹配规则
-     *
      * @param keywords
      * @param orderData
-     * @return
+     * @return boolean
+     * @Description 匹配规则
      */
     public static boolean checkKeywordsTrue(String keywords, String orderData) {
         if (StringUtils.isEmpty(keywords)) {

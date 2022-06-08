@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 
 /**
- * @Description: 添加Runnable接口实现类，被定时任务线程池调用，用来执行指定bean里面的方法。
+ * @Description: 定时任务执行类： 实现Runnable，被定时任务线程池调用，用来执行指定bean里面的方法。
  * @Author: mck
  * @Date: 2022/5/24 10:17
  **/

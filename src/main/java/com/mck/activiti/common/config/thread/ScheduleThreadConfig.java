@@ -1,4 +1,4 @@
-package com.mck.activiti.common.config;
+package com.mck.activiti.common.config.thread;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
  * @Date: 2022/5/24 10:17
  **/
 @Configuration
-public class ScheduleConfig {
+public class ScheduleThreadConfig {
 
     @Bean
     public TaskScheduler taskScheduler() {

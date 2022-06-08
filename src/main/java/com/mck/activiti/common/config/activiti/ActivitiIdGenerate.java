@@ -1,4 +1,4 @@
-package com.mck.activiti.common.config;
+package com.mck.activiti.common.config.activiti;
 
 import cn.hutool.core.util.IdUtil;
 import org.activiti.engine.impl.cfg.IdGenerator;

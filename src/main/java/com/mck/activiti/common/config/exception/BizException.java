@@ -1,4 +1,4 @@
-package com.mck.activiti.common.config;
+package com.mck.activiti.common.config.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

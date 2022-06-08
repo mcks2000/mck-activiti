@@ -24,6 +24,8 @@
         <activiti.version>5.22.0</activiti.version>
         <druid-starter>1.1.22</druid-starter>
         <orika-core-version>1.5.4</orika-core-version>
+        <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
+        <thymeleaf-extras-java8time.version>3.0.4.RELEASE</thymeleaf-extras-java8time.version>
     </properties>
 
     <dependencies>
@@ -73,6 +75,11 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>
+        <!-- 切面 -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
         <!-- 实体（Bean）拷贝 -->
         <dependency>
             <groupId>ma.glasnost.orika</groupId>
@@ -99,6 +106,10 @@
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-modeler</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-java8time</artifactId>
         </dependency>
     </dependencies>
 
@@ -162,6 +173,12 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
+            <!-- 切面 -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectjweaver.version}</version>
+            </dependency>
             <!-- 实体（Bean）拷贝 -->
             <dependency>
                 <groupId>ma.glasnost.orika</groupId>
@@ -187,7 +204,11 @@
                 <artifactId>activiti-modeler</artifactId>
                 <version>${activiti.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.thymeleaf.extras</groupId>
+                <artifactId>thymeleaf-extras-java8time</artifactId>
+                <version>${thymeleaf-extras-java8time.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>

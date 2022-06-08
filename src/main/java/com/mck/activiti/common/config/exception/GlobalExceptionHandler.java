@@ -1,4 +1,4 @@
-package com.mck.activiti.common.config;
+package com.mck.activiti.common.config.exception;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.mck.activiti.common.entity.ResponseResult;

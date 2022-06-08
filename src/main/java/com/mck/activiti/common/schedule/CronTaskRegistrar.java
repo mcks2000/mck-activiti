@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @Description: 添加定时任务注册类，用来增加、删除定时任务。
+ * @Description: 定时任务管理： 添加定时任务注册类，用来增加、删除定时任务。
  * @Author: mck
  * @Date: 2022/5/24 10:17
  **/
@@ -22,31 +22,38 @@ public class CronTaskRegistrar implements DisposableBean {
     @Autowired
     private TaskScheduler taskScheduler;
 
+    /**
+     * @param task           任务
+     * @param cronExpression cron表达式
+     * @Description 添加定时任务
+     */
     public void addCronTask(Runnable task, String cronExpression) {
         addCronTask(new CronTask(task, cronExpression));
     }
 
-    public void addCronTask(CronTask cronTask) {
+    private void addCronTask(CronTask cronTask) {
         if (cronTask != null) {
             Runnable task = cronTask.getRunnable();
             if (this.scheduledTasks.containsKey(task)) {
                 removeCronTask(task);
             }
-
             this.scheduledTasks.put(task, scheduleCronTask(cronTask));
         }
     }
 
+    /**
+     * @param task  取消任务
+     * @Description 添加定时任务
+     */
     public void removeCronTask(Runnable task) {
         ScheduledTask scheduledTask = this.scheduledTasks.remove(task);
         if (scheduledTask != null)
             scheduledTask.cancel();
     }
 
-    public ScheduledTask scheduleCronTask(CronTask cronTask) {
+    private ScheduledTask scheduleCronTask(CronTask cronTask) {
         ScheduledTask scheduledTask = new ScheduledTask();
         scheduledTask.future = this.taskScheduler.schedule(cronTask.getRunnable(), cronTask.getTrigger());
-
         return scheduledTask;
     }
 
@@ -56,7 +63,6 @@ public class CronTaskRegistrar implements DisposableBean {
         for (ScheduledTask task : this.scheduledTasks.values()) {
             task.cancel();
         }
-
         this.scheduledTasks.clear();
     }
 }

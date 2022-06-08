@@ -1,4 +1,4 @@
-package com.mck.activiti.common.config;
+package com.mck.activiti.common.config.activiti;
 
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.history.HistoryLevel;

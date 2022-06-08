@@ -1,10 +1,9 @@
 package com.mck.activiti.controller;
 
-import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.mck.activiti.common.config.BizException;
+import com.mck.activiti.common.config.exception.BizException;
 import com.mck.activiti.common.entity.ResponseResult;
 import com.mck.activiti.common.entity.ResponseTableResult;
 import com.mck.activiti.common.entity.ResponseUtil;
@@ -48,7 +47,6 @@ import java.util.List;
 @RestController
 @RequestMapping("model")
 public class ActivitiModelController {
-
     @Autowired
     private RepositoryService repositoryService;
     @Autowired

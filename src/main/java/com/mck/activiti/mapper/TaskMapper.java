@@ -2,6 +2,7 @@ package com.mck.activiti.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mck.activiti.common.mapper.SuperMapper;
 import com.mck.activiti.model.vo.TaskVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,7 +13,7 @@ import org.apache.ibatis.annotations.Param;
  * @Date: 2022/5/24 10:17
  **/
 @Mapper
-public interface TaskMapper extends BaseMapper<TaskVo> {
+public interface TaskMapper extends SuperMapper<TaskVo> {
 
     /**
      * 查询我的代办任务

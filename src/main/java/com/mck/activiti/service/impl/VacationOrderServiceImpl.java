@@ -1,12 +1,11 @@
 package com.mck.activiti.service.impl;
 
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mck.activiti.common.entity.PageBean;
 import com.mck.activiti.common.entity.SysConstant;
+import com.mck.activiti.common.service.impl.SuperServiceImpl;
 import com.mck.activiti.common.util.CommonUtil;
 import com.mck.activiti.mapper.VacationOrderMapper;
 import com.mck.activiti.model.entity.FlowAudit;
@@ -35,10 +34,8 @@ import java.util.Map;
  **/
 @Service
 @Slf4j
-public class VacationOrderServiceImpl implements IVacationOrderService {
+public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapper, VacationOrder> implements IVacationOrderService {
 
-    @Autowired
-    private VacationOrderMapper vacationOrderMapper;
     @Autowired
     private IFlowInfoService flowInfoService;
     @Autowired
@@ -55,7 +52,7 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
         ProcessLog bean = new ProcessLog();
         SysUser currentSysUser = userService.getCurrentUser();
         if (null != vacationOrder.getVacationId()) {//更新
-            vacationOrderMapper.updateById(vacationOrder);
+            this.updateById(vacationOrder);
             bean.setOrderNo(vacationOrder.getVacationId());
             bean.setOperValue(currentSysUser.getUserName() + "修改审批单");
         } else {
@@ -66,7 +63,7 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
             vacationOrder.setUserId(currentSysUser.getUserId());
             vacationOrder.setSystemCode("1001");
             vacationOrder.setBusiType("2001");
-            vacationOrderMapper.insert(vacationOrder);
+            this.saveOrUpdate(vacationOrder);
             bean.setOperValue(currentSysUser.getUserName() + "填写审批单");
         }
 
@@ -77,15 +74,13 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
     public Page<VacationOrderVo> queryVacationOrder(PageBean pageBean) {
         Page<VacationOrder> page = new Page<>(pageBean.getPage(), pageBean.getLimit());
         SysUser currentSysUser = userService.getCurrentUser();
-        Page<VacationOrderVo> vacationOrderPage = vacationOrderMapper.queryVacationOrder(page, currentSysUser.getUserId());
+        Page<VacationOrderVo> vacationOrderPage = baseMapper.queryVacationOrder(page, currentSysUser.getUserId());
         return vacationOrderPage;
     }
 
     @Override
     public VacationOrder queryVacation(Long vacationId) {
-        QueryWrapper<VacationOrder> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("vacation_id", vacationId);
-        return vacationOrderMapper.selectOne(queryWrapper);
+        return this.getById(vacationId);
     }
 
     @Override
@@ -94,7 +89,7 @@ public class VacationOrderServiceImpl implements IVacationOrderService {
         VacationOrder vacationOrder = new VacationOrder();
         vacationOrder.setVacationState(state);
         vacationOrder.setVacationId(vacationId);
-        vacationOrderMapper.updateById(vacationOrder);
+        this.updateById(vacationOrder);
 
     }
 
