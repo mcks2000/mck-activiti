@@ -77,7 +77,8 @@ mck-activiti--父项目
 项目截图
 
 交流与反馈
-![微信二维码](./images/2fe827338ec8c673e5473365680265a.jpg)
+![微信二维码](https://github.com/mcks2000/mck-activiti/blob/main/images/2fe827338ec8c673e5473365680265a.jpg)
+
 
 參考項目
 
