@@ -1,37 +1,85 @@
-## Welcome to GitHub Pages
+# mck-activiti
 
-You can use the [editor on GitHub](https://github.com/mcks2000/mck-activiti/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+工作流管理
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+代码架构
 
-### Markdown
+总体架构图
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+产品介绍
 
-```markdown
-Syntax highlighted code block
+功能介绍
 
-# Header 1
-## Header 2
-### Header 3
+软件架构
 
-- Bulleted
-- List
+功能亮点
 
-1. Numbered
-2. List
+项目两点
 
-**Bold** and _Italic_ and `Code` text
+技术栈
 
-[Link](url) and ![Image](src)
+#### 软件架构
+
+| 定位    | 技术栈     |
+|-------|---------------------------|
+| 后端    | SpringBoot v2.3.4.RELEASE |
+| 工作流   | Activiti v5.22.0          |
+| 数据库   | MySQL v8.0.19             |
+| 数据库   | mybatis-plus v3.3.1       |
+| 缓存    | redis   v4.0.0            |
+| 前端    | layui、thymeleaf           |
+| maven | 3.6.3                     |
+
+#### 安装步骤
+
+-
+    1. idea下载项目自动从maven库下载依赖
+-
+    2. 安装MySQL数据库(8.0.19版本)并设置忽略大小写导入SQL脚本、安装redis并开启密码
+-
+    3. [数据库-包含表结构和数据，mck-activiti.sql](db/mck-activiti.sql)
+-
+    4. 修改application-dev.yml数据库的配置和redis配置为自己的配置
+-
+    5. 启动项目访问默认7004端口
+-
+    6. **登录用户名默认密码：123**
+-
+    7. **用户级别关系图**
+
+| 用户名  | 级别               |
+|-----|-------------------|
+| sunqi  | 最底层员工|
+| zhaoliu | 最底层员工             |
+| wangwu | sunqi和zhaoliu的直接上级领导      |
+| lisi | wangwu的直接上级领导      |
+| zhangsan| lisi的直接上级领导，最高领导(无需填写请假申请)|
+
+模块说明
+
+```java
+mck-activiti--父项目
+        │  ├─com.mck.activiti.common--公共依賴
+        │  │  ├─com.mck.activiti.common.config--公共配置
+        │  │  │  ├─com.mck.activiti.common.config.db--mybatis相關使用配置
+        │  │  ├─com.mck.activiti.common.entity--共同實體
+        │  │  ├─com.mck.activiti.common.flow--流程繪製
+        │  │  ├─com.mck.activiti.common.schedule--定時任務
+        │  │  ├─com.mck.activiti.common.util--工具類
+        │  ├─com.mck.activiti.controller--服務控制
+        │  ├─com.mck.activiti.listener--流程監聽
+        │  ├─com.mck.activiti.mapper--mybatis映射
+        │  ├─com.mck.activiti.service--功能服務
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+安装部署
 
-### Jekyll Themes
+项目截图
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mcks2000/mck-activiti/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+交流与反馈
+![微信二维码](./images/2fe827338ec8c673e5473365680265a.jpg)
 
-### Support or Contact
+參考項目
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+- [microservices-platform](https://gitee.com/zlt2000/microservices-platform)
+- [sunny-activiti](https://gitee.com/itsunny/sunny-activiti)
