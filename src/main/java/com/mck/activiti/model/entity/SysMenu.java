@@ -2,12 +2,11 @@ package com.mck.activiti.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mck.activiti.common.entity.BaseObject;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Description: 系统菜单表
@@ -18,9 +17,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("sys_menu")
-public class SysMenu implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class SysMenu extends BaseObject {
 
     /**
      * id
@@ -61,26 +58,4 @@ public class SysMenu implements Serializable {
      * 状态(0:禁用,1:启用)
      */
     private Boolean status;
-
-    /**
-     * 备注信息
-     */
-    private String remark;
-
-    /**
-     * 创建时间
-     */
-    private Date createAt;
-
-    /**
-     * 更新时间
-     */
-    private Date updateAt;
-
-    /**
-     * 删除时间
-     */
-    private Date deleteAt;
-
-
 }

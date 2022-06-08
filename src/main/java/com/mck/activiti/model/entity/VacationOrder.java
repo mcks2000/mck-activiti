@@ -1,18 +1,15 @@
 package com.mck.activiti.model.entity;
 
 import cn.hutool.core.date.DatePattern;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mck.activiti.common.entity.BaseObject;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * @Description: 假期管理
@@ -23,10 +20,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_vacation_order")
-public class VacationOrder implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class VacationOrder extends BaseObject {
     /**
      * ID
      */
@@ -46,7 +40,7 @@ public class VacationOrder implements Serializable {
     /**
      * 结束时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = DatePattern.NORM_DATE_PATTERN)
     private LocalDate endTime;
 
     /**
@@ -73,12 +67,4 @@ public class VacationOrder implements Serializable {
      * 业务类型
      */
     private String busiType;
-
-    /**
-     * 创建时间
-     */
-    @DateTimeFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
-    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "GMT+8")
-    private Date createTime;
-
 }

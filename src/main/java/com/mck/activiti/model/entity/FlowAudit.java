@@ -2,12 +2,11 @@ package com.mck.activiti.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mck.activiti.common.entity.BaseObject;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Description: 流程与审批单表关联表
@@ -18,10 +17,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_flow_audit")
-public class FlowAudit implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class FlowAudit extends BaseObject {
     /**
      * 主键
      */
@@ -52,11 +48,4 @@ public class FlowAudit implements Serializable {
      * 流程状态(1:正常,0:异常)
      */
     private Integer flowState;
-
-    /**
-     * 流程启用时间
-     */
-    private Date createTime;
-
-
 }

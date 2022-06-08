@@ -27,7 +27,7 @@ spring:
       #     可以支持PSCache（提升写入、查询效率）
       poolPreparedStatements: true
       #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-#      filters: stat,wall,log4j
+      #      filters: stat,wall,log4j
       #     保持长连接
       keepAlive: true
       maxPoolPreparedStatementPerConnectionSize: 20
@@ -47,4 +47,7 @@ spring:
     timeout: 3s
     database: 6
 
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  typeAliasesPackage: com.mck.activiti.model.entity #实体扫描，多个package用逗号或者分号分隔
 

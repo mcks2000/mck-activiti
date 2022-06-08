@@ -33,4 +33,19 @@ public class MybatisPlusAutoFillProperties {
      * 更新时间字段名
      */
     private String updateTimeField = "updateTime";
+
+    /**
+     * 创建者 {userId} 字段名
+     */
+    private String createByField = "createBy";
+
+    /**
+     * 更新者 {userId} 字段名
+     */
+    private String updateByField = "updateBy";
+
+    /**
+     * 逻辑删除字段名
+     */
+    private String delFlagField = "delFlag";
 }

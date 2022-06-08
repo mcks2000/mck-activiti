@@ -13,6 +13,7 @@
         body {
             background-color: #ffffff;
         }
+
     </style>
 </head>
 <body>
@@ -20,35 +21,39 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">类名称</label>
         <div class="layui-input-inline">
-            <input type="text" name="className" lay-verify="required" lay-reqtext="请输入类名称" placeholder="请输入类名称" th:value="${taskVO.className}" class="layui-input">
+            <input type="text" name="className" lay-verify="required" lay-reqtext="请输入类名称" placeholder="请输入类名称"
+                   th:value="${taskVO.className}" class="layui-input">
         </div>
         <div class="layui-form-mid layui-word-aux">请务必确保填写的类名存在</div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">方法名</label>
         <div class="layui-input-inline">
-            <input type="text" name="methodName" lay-verify="required" lay-reqtext="请输入方法名称" placeholder="请输入方法名称" th:value="${taskVO.methodName}" class="layui-input">
+            <input type="text" name="methodName" lay-verify="required" lay-reqtext="请输入方法名称" placeholder="请输入方法名称"
+                   th:value="${taskVO.methodName}" class="layui-input">
         </div>
         <div class="layui-form-mid layui-word-aux">请务必确保类型对应的方法名存在</div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">请求参数</label>
         <div class="layui-input-inline">
-            <input type="text" name="reqParams" lay-reqtext="请输入请求参数" placeholder="请输入请求参数" th:value="${taskVO.reqParams}" class="layui-input">
+            <input type="text" name="reqParams" lay-reqtext="请输入请求参数" placeholder="请输入请求参数"
+                   th:value="${taskVO.reqParams}" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">cron表达式</label>
         <div class="layui-input-inline">
-            <input type="text" name="taskCron" lay-verify="required" lay-reqtext="请输入cron表达式" placeholder="请输入cron表达式" th:value="${taskVO.taskCron}" class="layui-input">
+            <input type="text" name="taskCron" lay-verify="required" lay-reqtext="请输入cron表达式" placeholder="请输入cron表达式"
+                   th:value="${taskVO.taskCron}" class="layui-input">
         </div>
         <div class="layui-form-mid layui-word-aux">请务必确保cron表达式准确</div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">任务状态</label>
         <div class="layui-input-inline" lay-verify-msg="请选择任务状态" lay-verify="mustRadio">
-            <input  type="radio" name="taskState" title="启用" value="0" th:checked="${taskVO.taskState == 0}">
-            <input  type="radio" name="taskState" title="暂停" value="1" th:checked="${taskVO.taskState == 1}">
+            <input type="radio" name="taskState" title="启用" value="0" th:checked="${taskVO.taskState == 0}">
+            <input type="radio" name="taskState" title="暂停" value="1" th:checked="${taskVO.taskState == 1}">
         </div>
     </div>
     <div class="layui-form-item">

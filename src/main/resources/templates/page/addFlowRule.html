@@ -12,6 +12,7 @@
         body {
             background-color: #ffffff;
         }
+
     </style>
 </head>
 <body>
@@ -19,25 +20,29 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">规则名称</label>
         <div class="layui-input-block">
-            <input type="text" name="ruleName" lay-verify="required" lay-reqtext="请输入规则名称" placeholder="请输入规则名称" value="" class="layui-input">
+            <input type="text" name="ruleName" lay-verify="required" lay-reqtext="请输入规则名称" placeholder="请输入规则名称"
+                   value="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">业务流程</label>
         <div class="layui-input-block" lay-verify-msg="请选择业务流程" lay-verify="mustRadio">
-            <input th:each="flowDef:${flowDefList}" type="radio" name="defId" th:title="${flowDef.flowName}" th:value="${flowDef.defId}">
+            <input th:each="flowDef:${flowDefList}" type="radio" name="defId" th:title="${flowDef.flowName}"
+                   th:value="${flowDef.defId}">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">系统来源</label>
         <div class="layui-input-block" lay-verify-msg="请选择系统来源" lay-verify="mustcheck">
-            <input th:each="system:${systemList}" type="checkbox" name="systemId" th:title="${system.dictName}" th:value="${system.dictValue}">
+            <input th:each="system:${systemList}" type="checkbox" name="systemId" th:title="${system.dictName}"
+                   th:value="${system.dictValue}">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">业务类型</label>
         <div class="layui-input-block" lay-verify-msg="请选择业务类型" lay-verify="mustcheck">
-            <input th:each="system:${busitypeList}" type="checkbox" name="busiType" th:title="${system.dictName}" th:value="${system.dictValue}">
+            <input th:each="system:${busitypeList}" type="checkbox" name="busiType" th:title="${system.dictName}"
+                   th:value="${system.dictValue}">
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
@@ -130,6 +135,7 @@
         });
 
     });
+
 </script>
 </body>
 </html>

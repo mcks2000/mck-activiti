@@ -17,19 +17,15 @@ server:
   activiti:
     db-history-used: true
     history-level: full
-    # 关闭定时器,因为已经用xxl-job做了定时任务
-    async-executor-activate: false
+    async-executor-activate: false # 关闭定时器,因为已经用xxl-job做了定时任务
+
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true  # 开启驼峰功能
     cache-enabled: true # 开启缓存
-# 配置slq打印日志
-    log-impl: com.mck.activiti.common.config.db.MyStdOutImpl
-  mapper-locations: classpath*:/mapper/*.xml
-  #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.mck.activiti.model.entity
-#  global-config:
-#    db-config:
-#      logic-delete-field: flag # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
-#      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
-#      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+    log-impl: com.mck.activiti.common.config.db.MyStdOutImpl  # 配置slq打印日志
+  global-config:
+    db-config:
+      field-strategy: NOT_NULL
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)

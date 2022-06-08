@@ -18,12 +18,13 @@ public class MapperUtils {
     }
 
     @Bean
-    private static MapperFactory mapperFactory(){
+    private static MapperFactory mapperFactory() {
         return MapperFactoryHolder.INSTANCE;
     }
 
     /**
      * 获取 MapperFacade
+     *
      * @return
      */
     public static MapperFacade getMapper() {
@@ -32,13 +33,14 @@ public class MapperUtils {
 
     /**
      * bean 转换
-     * @param bean 需要转换的bean
+     *
+     * @param bean  需要转换的bean
      * @param zlazz 转换之后的类型bean
      * @param <T>
      * @return
      */
-    public static <T> T beanConvert(Object bean,Class<T> zlazz){
-        if (ObjectUtils.isEmpty(bean)){
+    public static <T> T beanConvert(Object bean, Class<T> zlazz) {
+        if (ObjectUtils.isEmpty(bean)) {
             return null;
         }
         return MapperUtils.getMapper().map(bean, zlazz);

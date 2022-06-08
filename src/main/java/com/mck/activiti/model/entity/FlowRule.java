@@ -3,11 +3,11 @@ package com.mck.activiti.model.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mck.activiti.common.entity.BaseObject;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -19,10 +19,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_flow_rule")
-public class FlowRule implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class FlowRule extends BaseObject {
     /**
      * 规则ID
      */

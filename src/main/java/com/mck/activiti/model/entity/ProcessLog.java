@@ -1,6 +1,5 @@
 package com.mck.activiti.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mck.activiti.common.entity.BaseObject;
@@ -8,8 +7,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Description: 流程审批日志表
@@ -62,16 +59,4 @@ public class ProcessLog extends BaseObject {
      * 操作值
      */
     private String operValue;
-
-//    /**
-//     * 操作时间
-//     */
-//    private Date createTime;
-//
-//    /**
-//     * 备注
-//     */
-//    private String remark;
-
-
 }

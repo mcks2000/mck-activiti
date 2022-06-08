@@ -8,6 +8,7 @@
         .layui-timeline-title {
             color: #FF7500;
         }
+
     </style>
 </head>
 <body>
@@ -19,7 +20,8 @@
     <li class="layui-timeline-item">
         <i class="layui-icon layui-timeline-axis"></i>
         <div class="layui-timeline-content layui-text">
-            <div class="layui-timeline-title" th:text="|${#dates.format(log.createTime,'yyyy-MM-dd hh:ss:mm')}&nbsp;&nbsp;${log.operValue}|"></div>
+            <div class="layui-timeline-title"
+                 th:text="|${#dates.format(log.createTime,'yyyy-MM-dd hh:ss:mm')}&nbsp;&nbsp;${log.operValue}|"></div>
         </div>
     </li>
 </ul>
@@ -39,6 +41,7 @@
 
     var processId = requestParameter()["processId"];
     document.getElementById("flow-image").src = "/model/queryFlowImg?processId=" + processId;
+
 </script>
 <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 </body>

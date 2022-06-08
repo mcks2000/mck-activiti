@@ -18,7 +18,8 @@
             </div>
         </script>
         <script type="text/html" id="switchState">
-            <input type="checkbox" name="taskState" value="{{d.taskId}}" lay-skin="switch" lay-text="启用|暂停" lay-filter="stateDemo" {{ d.taskState == 0 ? 'checked' : '' }}>
+            <input type="checkbox" name="taskState" value="{{d.taskId}}" lay-skin="switch" lay-text="启用|暂停"
+                   lay-filter="stateDemo" {{ d.taskState== 0 ? 'checked' : '' }}>
         </script>
 
         <table class="layui-hide" id="scheduledTable" lay-filter="currentTableFilter"></table>
