@@ -31,8 +31,8 @@ public class FinishDelegate implements JavaDelegate {
         String flowAuditId = execution.getProcessBusinessKey();
         log.info("审批完成更新审批状态:{}", flowAuditId);
 
-        FlowAudit flowAudit = flowAuditService.queryFlowById(Long.valueOf(flowAuditId));
-        vacationOrderService.updateState(flowAudit.getOrderNo(), SysConstant.COMPLETED_STATE);
+        FlowAudit flowAudit = flowAuditService.queryFlowAuditById(flowAuditId);
+        vacationOrderService.updateUpdateStateState(flowAudit.getOrderNo(), SysConstant.COMPLETED_STATE);
         //记录日志
         ProcessLog bean = new ProcessLog();
         SysUser sysUser = userService.getCurrentUser();
@@ -41,6 +41,6 @@ public class FinishDelegate implements JavaDelegate {
         bean.setTaskKey("finish_end");
         bean.setApprovStatu("finish_end");
         bean.setOperValue("审批完工");
-        logService.insertLog(bean);
+        logService.insertProcessLog(bean);
     }
 }

@@ -29,7 +29,7 @@
         AND t3.ASSIGNEE_ = #{userId}
     </select>
     <!--查询审批单对应的任务信息-->
-    <select id="queryTaskById" resultType="com.mck.activiti.module.flow.model.vo.TaskVo" parameterType="long">
+    <select id="queryTaskByVacationId" resultType="com.mck.activiti.module.flow.model.vo.TaskVo" parameterType="long">
         SELECT
         t.vacation_id,
         t.user_id,

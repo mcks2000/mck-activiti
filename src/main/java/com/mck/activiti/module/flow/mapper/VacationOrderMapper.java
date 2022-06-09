@@ -16,6 +16,12 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface VacationOrderMapper extends SuperMapper<VacationOrder> {
 
+    /**
+     * @param page   分页
+     * @param userId 用户ID
+     * @return
+     * @Description 请假列表查询
+     */
     Page<VacationOrderVo> queryVacationOrder(Page<VacationOrder> page, @Param("userId") String userId);
 
 }

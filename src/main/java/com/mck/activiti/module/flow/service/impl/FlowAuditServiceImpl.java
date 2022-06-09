@@ -41,16 +41,14 @@ public class FlowAuditServiceImpl extends SuperServiceImpl<FlowAuditMapper, Flow
     }
 
     @Override
-    public FlowAudit queryFlowById(Long flowAuditId) {
-        QueryWrapper<FlowAudit> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("flow_audit_id", flowAuditId);
-        return baseMapper.selectOne(queryWrapper);
+    public FlowAudit queryFlowAuditById(String flowAuditId) {
+        return this.getById(flowAuditId);
     }
 
     /**
      * @param ruleId 流程规则ID
      * @return List<FlowAudit>
-     * @Description 通过 {ruleId} 查询流程与审批单表关联表
+     * @Description 通过 {flowAuditId} 查询流程与审批单表关联表
      */
     @Override
     public List<FlowAudit> queryFlowByRuleId(String ruleId) {

@@ -22,9 +22,7 @@ public class FlowRuleServiceImpl extends SuperServiceImpl<FlowRuleMapper, FlowRu
     @Override
     public String insertFlowRule(FlowRule flowRule) {
         String resMsg = "";
-        QueryWrapper<FlowRule> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("def_id", flowRule.getDefId());
-        Integer count = baseMapper.selectCount(queryWrapper);
+        Integer count = this.count();
         if (count <= 0) {
             flowRule.setRuleId(CommonUtil.genId());
             flowRule.setSystemCode(String.join(",", flowRule.getSystemIds()));
@@ -50,8 +48,6 @@ public class FlowRuleServiceImpl extends SuperServiceImpl<FlowRuleMapper, FlowRu
      */
     @Override
     public void deleteFlowRuleById(String ruleId) {
-        QueryWrapper<FlowRule> wrapper = new QueryWrapper<>();
-        wrapper.eq("rule_id", ruleId);
-        baseMapper.delete(wrapper);
+        baseMapper.deleteById(ruleId);
     }
 }

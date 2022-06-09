@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * @Description:
+ * @Description: 查询任务服务，查询时关联 ACT_RU_TASK
  * @Author: mck
  * @Date: 2022/5/24 10:17
  **/
@@ -15,18 +15,19 @@ import org.apache.ibatis.annotations.Param;
 public interface TaskMapper extends SuperMapper<TaskVo> {
 
     /**
-     * 查询我的代办任务
-     *
-     * @param userId
+     * @param userId 用户ID
+     *               该ID是 ACT_RU_TASK.ASSIGNEE_={userId}
+     *               业务系统中userId需要和工作流的userId一致
      * @return
+     * @Description 查询我的代办任务
      */
     Page<TaskVo> queryMyTask(Page<TaskVo> page, @Param("userId") String userId);
 
     /**
-     * 查询审批单当前任务信息
-     *
-     * @param vacationId
+     * @param vacationId 流程实例ID
+     *                   查询是需要关联工作流中实例ID
      * @return
+     * @Description 查询审批单当前任务信息
      */
-    TaskVo queryTaskById(@Param("vacationId") Long vacationId);
+    TaskVo queryTaskByVacationId(@Param("vacationId") Long vacationId);
 }

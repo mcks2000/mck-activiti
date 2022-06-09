@@ -25,7 +25,7 @@ public interface IFlowDefService extends ISuperService<FlowDef> {
      * @param defId
      * @return
      */
-    FlowDef queryFlowDef(Long defId);
+    FlowDef queryFlowDefById(Long defId);
 
     /**
      * 新增流程定义

@@ -50,7 +50,7 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
     /**
      * 1.判断是否有上级
      * 2.保存或者更新
-     * 3.插入审核日志
+     * 3.插入审批日志
      *
      * @param vacationOrder
      */
@@ -79,7 +79,7 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
             bean.setOperValue(currentSysUser.getUserName() + "填写审批单");
         }
 
-        logService.insertLog(bean);
+        logService.insertProcessLog(bean);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
 
     @Override
     @Transactional
-    public void updateState(Long vacationId, Integer state) {
+    public void updateUpdateStateState(Long vacationId, Integer state) {
         VacationOrder vacationOrder = new VacationOrder();
         vacationOrder.setVacationState(state);
         vacationOrder.setVacationId(vacationId);
@@ -123,8 +123,8 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
      * 2.判断该流程是否已经发起申请 是：返回true？往下走
      * 2.1返回true  请求结束
      * 2.2创建流程实例，并将流程实例添加到 工作流任务中
-     * 3.将流程审核流转到上一级
-     * 4.更新审核状态，增加审核日志
+     * 3.将流程审批流转到上一级
+     * 4.更新审批状态，增加审批日志
      *
      * @param vacationId 审批单ID
      * @return
@@ -132,7 +132,7 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
      */
     @Override
     @Transactional
-    public boolean submitApply(Long vacationId) {
+    public boolean submitVacationApply(Long vacationId) {
         SysUser currentSysUser = this.parentUserIdIsNull();
 
         //匹配流程之前查询是否已经匹配过
@@ -146,8 +146,8 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
         String processId = flowInfoService.createProcessInstance(vacationId, variables);
 
 
-        // 将流程审核流转到上一级
-        Task task = flowInfoService.queryTaskByInstId(processId);
+        // 将流程审批流转到上一级
+        Task task = flowInfoService.queryTaskByProcessInstanceId(processId);
         ParamAssertUtil.notNull(task, "任务未创建成功，请稍后再试");
 
         variables.put("subState", "success");
@@ -155,7 +155,7 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
 
 
         //更新审批单状态
-        this.updateState(vacationId, SysConstant.REVIEW_STATE);
+        this.updateUpdateStateState(vacationId, SysConstant.REVIEW_STATE);
         //记录日志
         ProcessLog bean = new ProcessLog();
         SysUser sysUser = userService.queryUserById(currentSysUser.getParentUserId());
@@ -164,16 +164,16 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
         bean.setTaskName(task.getName());
         bean.setTaskKey(task.getTaskDefinitionKey());
         bean.setApprovStatu("submitApply");
-        bean.setOperValue(currentSysUser.getUserName() + "提交申请,待【" + sysUser.getUserName() + "】审核");
-        logService.insertLog(bean);
+        bean.setOperValue(currentSysUser.getUserName() + "提交申请,待【" + sysUser.getUserName() + "】审批");
+        logService.insertProcessLog(bean);
         return true;
     }
 
 
     @Override
     @Transactional
-    public void delVacation(Long vacationId) {
-        this.updateState(vacationId, SysConstant.OBSOLETE_STATE);
+    public void delVacationById(Long vacationId) {
+        this.updateUpdateStateState(vacationId, SysConstant.OBSOLETE_STATE);
         //记录日志
         SysUser currentSysUser = userService.getCurrentUser();
         ProcessLog bean = new ProcessLog();
@@ -181,7 +181,7 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
         bean.setOrderNo(vacationId);
         bean.setApprovStatu("DELETE");
         bean.setOperValue(currentSysUser.getUserName() + "删除审批单");
-        logService.insertLog(bean);
+        logService.insertProcessLog(bean);
     }
 
 }

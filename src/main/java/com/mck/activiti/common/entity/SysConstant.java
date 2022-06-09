@@ -38,7 +38,7 @@ public class SysConstant {
      **/
     public static final int SUBMITTED_STATE = 0;
     /**
-     * 审核中
+     * 审批中
      **/
     public static final int REVIEW_STATE = 1;
     /**

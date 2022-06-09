@@ -54,7 +54,7 @@ public class VacationOrder extends BaseObject {
     private String vacationContext;
 
     /**
-     * 申请状态(0:待提交 1:审核中 2:已废弃 3:已完成)
+     * 申请状态(0:待提交 1:审批中 2:已废弃 3:已完成)
      */
     private Integer vacationState;
 

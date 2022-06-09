@@ -13,20 +13,23 @@ import com.mck.activiti.module.flow.model.entity.FlowRule;
  **/
 public interface IFlowRuleService extends ISuperService<FlowRule> {
     /**
-     * 新增流程规则
-     *
-     * @param flowRule
+     * @param flowRule 流程规则
+     * @Description 新增流程规则
      */
     String insertFlowRule(FlowRule flowRule);
 
     /**
-     * 流程规则查询
-     *
+     * @param pageBean 分页
      * @return
+     * @Description 流程规则查询
      */
     Page<FlowRule> queryFlowRule(PageBean pageBean);
 
 
+    /**
+     * @param ruleId 流程规则ID
+     * @Description 通过{ruleId}删除
+     */
     void deleteFlowRuleById(String ruleId);
 
 }

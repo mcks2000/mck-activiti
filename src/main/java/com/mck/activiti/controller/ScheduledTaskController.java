@@ -48,7 +48,7 @@ public class ScheduledTaskController {
     @PostMapping("addTask")
     @ResponseBody
     public ResponseResult<String> addTask(@RequestBody ScheduledTask scheduledTask) {
-        scheduledTaskService.addTask(scheduledTask);
+        scheduledTaskService.addScheduledTask(scheduledTask);
         return ResponseUtil.makeOKRsp();
     }
 
@@ -60,7 +60,7 @@ public class ScheduledTaskController {
      */
     @GetMapping("toEdit")
     public String toEdit(@RequestParam("taskId") String taskId, Model model) {
-        ScheduledTask taskVO = scheduledTaskService.queryScheduled(taskId);
+        ScheduledTask taskVO = scheduledTaskService.queryScheduledTaskById(taskId);
         model.addAttribute("taskVO", taskVO);
         return "page/editScheduled";
     }
@@ -74,7 +74,7 @@ public class ScheduledTaskController {
     @PostMapping("updateTask")
     @ResponseBody
     public ResponseResult<String> updateTask(@RequestBody ScheduledTask scheduledTask) {
-        scheduledTaskService.updateTask(scheduledTask);
+        scheduledTaskService.updateScheduledTask(scheduledTask);
         return ResponseUtil.makeOKRsp();
     }
 
@@ -87,7 +87,7 @@ public class ScheduledTaskController {
     @PostMapping("updateState")
     @ResponseBody
     public ResponseResult<String> updateState(@RequestBody ScheduledTask scheduledTask) {
-        scheduledTaskService.updateState(scheduledTask);
+        scheduledTaskService.updateScheduledTaskState(scheduledTask);
         return ResponseUtil.makeOKRsp();
     }
 
@@ -101,7 +101,7 @@ public class ScheduledTaskController {
     @PostMapping("delTask")
     @ResponseBody
     public ResponseResult<String> delTask(@RequestParam("taskId") String taskId) {
-        scheduledTaskService.delTask(taskId);
+        scheduledTaskService.delScheduledTaskById(taskId);
         return ResponseUtil.makeOKRsp();
     }
 }

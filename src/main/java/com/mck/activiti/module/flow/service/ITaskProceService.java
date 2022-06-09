@@ -13,24 +13,22 @@ import com.mck.activiti.module.flow.model.vo.TaskVo;
 public interface ITaskProceService extends ISuperService<TaskVo> {
 
     /**
-     * 查询我的代办任务
-     *
+     * @param pageBean 分页
      * @return
+     * @Description 查询我的代办任务
      */
     Page<TaskVo> queryMyTask(PageBean pageBean);
 
     /**
-     * 根据审批单号查询正在执行的流程任务
-     *
-     * @param vacationId
+     * @param vacationId 请假ID
      * @return
+     * @Description 根据审批单号查询正在执行的流程任务
      */
-    TaskVo queryTaskById(Long vacationId);
+    TaskVo queryTaskByVacationId(Long vacationId);
 
     /**
-     * 流程办理
-     *
-     * @param taskVo
+     * @param taskVo 任务
+     * @Description 流程办理
      */
     void completeTask(TaskVo taskVo);
 }

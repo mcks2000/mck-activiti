@@ -12,46 +12,40 @@ import com.mck.activiti.module.flow.model.entity.ScheduledTask;
  **/
 public interface IScheduledTaskService extends ISuperService<ScheduledTask> {
     /**
-     * 列表查询
-     *
-     * @param pageBean
+     * @param pageBean 分页
      * @return
+     * @Description 列表查询
      */
     Page<ScheduledTask> queryList(PageBean pageBean);
 
     /**
-     * 新增任务
-     *
-     * @param scheduledTask
+     * @param scheduledTask 定时任务
+     * @Description 新增任务
      */
-    void addTask(ScheduledTask scheduledTask);
+    void addScheduledTask(ScheduledTask scheduledTask);
 
     /**
-     * 更新
-     *
-     * @param scheduledTask
+     * @param scheduledTask 定时任务
+     * @Description 更新定时任务
      */
-    void updateTask(ScheduledTask scheduledTask);
+    void updateScheduledTask(ScheduledTask scheduledTask);
 
     /**
-     * 删除任务
-     *
-     * @param taskId
+     * @param taskId 定时任务ID
+     * @Description 删除任务
      */
-    void delTask(String taskId);
+    void delScheduledTaskById(String taskId);
 
     /**
-     * 更改状态
-     *
-     * @param scheduledTask
+     * @param scheduledTask 定时任务
+     * @Description 更改状态
      */
-    void updateState(ScheduledTask scheduledTask);
+    void updateScheduledTaskState(ScheduledTask scheduledTask);
 
     /**
-     * 任务查询
-     *
-     * @param taskId
+     * @param taskId 定时任务ID
      * @return
+     * @Description 任务查询
      */
-    ScheduledTask queryScheduled(String taskId);
+    ScheduledTask queryScheduledTaskById(String taskId);
 }

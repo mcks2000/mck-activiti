@@ -13,35 +13,36 @@ import java.util.List;
  **/
 public interface IFlowAuditService extends ISuperService<FlowAudit> {
     /**
-     * 记录流转主表信息
-     *
      * @param flowAudit
+     * @Description 记录流转主表信息
      */
     void insertFlowAudit(FlowAudit flowAudit);
 
     /**
-     * 记录流转主表信息
-     *
-     * @param flowAudit
+     * @param flowAudit 流程规则
+     * @Description 记录流转主表信息
      */
     void insertFlowAuditNoId(FlowAudit flowAudit);
 
     /**
-     * 根据审批单号查询匹配流程信息
-     *
      * @param orderNo
      * @return
+     * @Description 根据审批单号查询匹配流程信息
      */
     FlowAudit queryFlowAuditByOrderNo(Long orderNo);
 
     /**
-     * 根据主键查询
-     *
-     * @param flowAuditId
+     * @param flowAuditId 流程审批ID
      * @return
+     * @Description 根据主键查询
      */
-    FlowAudit queryFlowById(Long flowAuditId);
+    FlowAudit queryFlowAuditById(String flowAuditId);
 
+    /**
+     * @param ruleId 流程规则ID
+     * @return
+     * @Description 根据流程规则ID查询
+     */
     List<FlowAudit> queryFlowByRuleId(String ruleId);
 
 }

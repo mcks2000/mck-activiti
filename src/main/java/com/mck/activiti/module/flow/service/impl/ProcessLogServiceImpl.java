@@ -29,7 +29,7 @@ public class ProcessLogServiceImpl extends SuperServiceImpl<ProcessLogMapper, Pr
 
     @Override
     @Transactional
-    public void insertLog(ProcessLog processLog) {
+    public void insertProcessLog(ProcessLog processLog) {
         SysUser currentSysUser = userService.getCurrentUser();
         processLog.setLogId(CommonUtil.genId());
         processLog.setOperId(currentSysUser.getUserName());
@@ -37,7 +37,7 @@ public class ProcessLogServiceImpl extends SuperServiceImpl<ProcessLogMapper, Pr
     }
 
     @Override
-    public List<ProcessLog> queryOperLog(Long orderNo) {
+    public List<ProcessLog> queryProcessLog(Long orderNo) {
         QueryWrapper<ProcessLog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("order_no", orderNo);
         queryWrapper.orderByDesc("create_time");

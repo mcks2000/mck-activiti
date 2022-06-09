@@ -14,49 +14,44 @@ import com.mck.activiti.module.flow.model.vo.VacationOrderVo;
 public interface IVacationOrderService extends ISuperService<VacationOrder> {
 
     /**
-     * 提交请假申请
-     *
-     * @param vacationOrder
+     * @param vacationOrder 假期
+     * @Description 提交请假申请
      */
     void saveOrUpdateOrder(VacationOrder vacationOrder);
 
     /**
-     * 请假单列表查询
-     *
-     * @param pageBean
+     * @param pageBean 分页
      * @return
+     * @Description 请假单列表查询
      */
     Page<VacationOrderVo> queryVacationOrder(PageBean pageBean);
 
     /**
-     * 根据审批单号查询审批信息
-     *
-     * @param vacationId
+     * @param vacationId 假期ID
      * @return
+     * @Description 根据审批单号查询审批信息
      */
     VacationOrder queryVacation(Long vacationId);
 
     /**
-     * 更新审批单状态
-     * (0:待提交 1:审核中 2:已废弃 3:已完成)
-     *
-     * @param vacationId
+     * @param vacationId 假期ID
+     * @param state      审批状态
+     * @Description 更新审批单状态
+     * (0:待提交 1:审批中 2:已废弃 3:已完成)
      */
-    void updateState(Long vacationId, Integer state);
+    void updateUpdateStateState(Long vacationId, Integer state);
 
     /**
-     * 提交申请
-     * 1.申请成功更改状态为已提交审核中
+     * @param vacationId 假期ID
+     * @Description 提交申请
+     * 1.申请成功更改状态为已提交审批中
      * 2.执行工作流
-     *
-     * @param vacationId
      */
-    boolean submitApply(Long vacationId);
+    boolean submitVacationApply(Long vacationId);
 
     /**
-     * 删除审批单
-     *
-     * @param vacationId
+     * @param vacationId 假期ID
+     * @Description 删除审批单
      */
-    void delVacation(Long vacationId);
+    void delVacationById(Long vacationId);
 }

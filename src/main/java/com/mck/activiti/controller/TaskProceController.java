@@ -53,7 +53,7 @@ public class TaskProceController {
     @GetMapping("toTaskExec")
     public String toTaskExec(Model model, HttpServletRequest request) {
         String vacationId = request.getParameter("vacationId");
-        TaskVo taskInfo = taskProceService.queryTaskById(Long.valueOf(vacationId));
+        TaskVo taskInfo = taskProceService.queryTaskByVacationId(Long.valueOf(vacationId));
         model.addAttribute("taskInfo", taskInfo);
         return "/page/taskExec";
     }

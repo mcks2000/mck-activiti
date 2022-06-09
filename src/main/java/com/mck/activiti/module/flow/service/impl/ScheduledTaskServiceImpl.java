@@ -36,9 +36,9 @@ public class ScheduledTaskServiceImpl extends SuperServiceImpl<ScheduledTaskMapp
 
     @Override
     @Transactional
-    public void addTask(ScheduledTask scheduledTask) {
+    public void addScheduledTask(ScheduledTask scheduledTask) {
         if (StrUtil.isNotBlank(scheduledTask.getTaskId())) {//编辑
-            this.updateTask(scheduledTask);
+            this.updateScheduledTask(scheduledTask);
         } else { //新增
             scheduledTask.setTaskId(String.valueOf(CommonUtil.genId()));
             baseMapper.insert(scheduledTask);
@@ -53,10 +53,8 @@ public class ScheduledTaskServiceImpl extends SuperServiceImpl<ScheduledTaskMapp
 
     @Override
     @Transactional
-    public void updateTask(ScheduledTask scheduledTask) {
-        QueryWrapper<ScheduledTask> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("task_id", scheduledTask.getTaskId());
-        baseMapper.updateById(scheduledTask);
+    public void updateScheduledTask(ScheduledTask scheduledTask) {
+        this.getById(scheduledTask.getTaskId());
         //移除任务
         SchedulingRunnable task = new SchedulingRunnable(scheduledTask.getClassName(), scheduledTask.getMethodName(), scheduledTask.getReqParams());
         cronTaskRegistrar.removeCronTask(task);
@@ -68,20 +66,17 @@ public class ScheduledTaskServiceImpl extends SuperServiceImpl<ScheduledTaskMapp
 
     @Override
     @Transactional
-    public void delTask(String taskId) {
-        ScheduledTask scheduledTask = this.queryScheduled(taskId);
+    public void delScheduledTaskById(String taskId) {
+        ScheduledTask scheduledTask = this.queryScheduledTaskById(taskId);
         //移除任务
         SchedulingRunnable task = new SchedulingRunnable(scheduledTask.getClassName(), scheduledTask.getMethodName(), scheduledTask.getReqParams());
         cronTaskRegistrar.removeCronTask(task);
-
-        QueryWrapper<ScheduledTask> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("task_id", taskId);
-        baseMapper.delete(queryWrapper);
+        baseMapper.deleteById(taskId);
     }
 
     @Override
-    public void updateState(ScheduledTask scheduledTask) {
-        ScheduledTask bean = this.queryScheduled(scheduledTask.getTaskId());
+    public void updateScheduledTaskState(ScheduledTask scheduledTask) {
+        ScheduledTask bean = this.queryScheduledTaskById(scheduledTask.getTaskId());
 
         bean.setTaskState(scheduledTask.getTaskState());
         baseMapper.updateById(bean);
@@ -95,10 +90,7 @@ public class ScheduledTaskServiceImpl extends SuperServiceImpl<ScheduledTaskMapp
     }
 
     @Override
-    public ScheduledTask queryScheduled(String taskId) {
-        QueryWrapper<ScheduledTask> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("task_id", taskId);
-        queryWrapper.last("limit 1");
-        return baseMapper.selectOne(queryWrapper);
+    public ScheduledTask queryScheduledTaskById(String taskId) {
+        return this.getById(taskId);
     }
 }

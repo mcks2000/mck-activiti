@@ -69,7 +69,7 @@ public class VacationOrderController {
      */
     @RequestMapping("provalDetail")
     public String provalDetail(Model model, @RequestParam("processId") String processId, @RequestParam("orderNo") String orderNo) {
-        List<ProcessLog> logList = logService.queryOperLog(Long.valueOf(orderNo));
+        List<ProcessLog> logList = logService.queryProcessLog(Long.valueOf(orderNo));
         model.addAttribute("logList", logList);
         return "/page/viewFlow";
     }
@@ -95,8 +95,8 @@ public class VacationOrderController {
      */
     @PostMapping("submitApply")
     @ResponseBody
-    public ResponseResult<String> submitApply(@RequestParam("vacationId") String vacationId) {
-        boolean res = vacationOrderService.submitApply(Long.valueOf(vacationId));
+    public ResponseResult<String> submitVacationApply(@RequestParam("vacationId") Long vacationId) {
+        boolean res = vacationOrderService.submitVacationApply(vacationId);
         if (res) {
             return ResponseUtil.makeOKRsp();
         } else {
@@ -112,8 +112,8 @@ public class VacationOrderController {
      */
     @PostMapping("delVacation")
     @ResponseBody
-    public ResponseResult<String> delVacation(@RequestParam("vacationId") Long vacationId) {
-        vacationOrderService.delVacation(vacationId);
+    public ResponseResult<String> delVacationById(@RequestParam("vacationId") Long vacationId) {
+        vacationOrderService.delVacationById(vacationId);
         return ResponseUtil.makeOKRsp();
     }
 

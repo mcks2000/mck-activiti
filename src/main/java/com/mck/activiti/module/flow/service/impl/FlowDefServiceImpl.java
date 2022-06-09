@@ -28,10 +28,8 @@ public class FlowDefServiceImpl extends SuperServiceImpl<FlowDefMapper, FlowDef>
     }
 
     @Override
-    public FlowDef queryFlowDef(Long defId) {
-        QueryWrapper<FlowDef> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("def_id", defId);
-        return baseMapper.selectOne(queryWrapper);
+    public FlowDef queryFlowDefById(Long defId) {
+        return this.getById(defId);
     }
 
     @Transactional

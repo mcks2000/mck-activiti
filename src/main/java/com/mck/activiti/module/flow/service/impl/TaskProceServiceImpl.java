@@ -47,18 +47,18 @@ public class TaskProceServiceImpl extends SuperServiceImpl<TaskMapper, TaskVo> i
     }
 
     @Override
-    public TaskVo queryTaskById(Long vacationId) {
-        return baseMapper.queryTaskById(vacationId);
+    public TaskVo queryTaskByVacationId(Long vacationId) {
+        return baseMapper.queryTaskByVacationId(vacationId);
     }
 
     //
 
     /**
-     * TODO 1. 添加上一级是谁来审核，2.最后审核时间排在前面，判断如果是最后一位审核则自动跳过
+     * TODO 1. 添加上一级是谁来审批，2.最后审批时间排在前面，判断如果是最后一位审批则自动跳过
      * <p>
-     * 1.判断是审核是否通过
+     * 1.判断是审批是否通过
      * 1.1通过，流程往下继续走
-     * 1.2不通过 更新审核状态，在走下一步
+     * 1.2不通过 更新审批状态，在走下一步
      *
      * @param taskVo
      */
@@ -67,12 +67,12 @@ public class TaskProceServiceImpl extends SuperServiceImpl<TaskMapper, TaskVo> i
         Map<String, Object> variables = new HashMap<>();
         String spState = "";
         String spContext = "";
-        if (StrUtil.equals("0", taskVo.getApprovalType())) {//审核通过
+        if (StrUtil.equals("0", taskVo.getApprovalType())) {//审批通过
             spState = SysConstant.APPROVAL_AGREE;
             spContext = "审批通过";
             variables.put("spState", spState);
         } else if (StrUtil.equals("1", taskVo.getApprovalType())) {//驳回
-            vacationOrderService.updateState(Long.valueOf(taskVo.getVacationId()), SysConstant.SUBMITTED_STATE);
+            vacationOrderService.updateUpdateStateState(Long.valueOf(taskVo.getVacationId()), SysConstant.SUBMITTED_STATE);
             spState = SysConstant.APPROVAL_REJECT;
             spContext = "审批未通过";
             variables.put("spState", spState);
@@ -88,7 +88,7 @@ public class TaskProceServiceImpl extends SuperServiceImpl<TaskMapper, TaskVo> i
         bean.setTaskKey(taskVo.getTaskDefKey());
         bean.setApprovStatu(spState);
         bean.setOperValue(sysUser.getUserName() + spContext + ",审批意见:" + taskVo.getRemark());
-        logService.insertLog(bean);
+        logService.insertProcessLog(bean);
 
     }
 }

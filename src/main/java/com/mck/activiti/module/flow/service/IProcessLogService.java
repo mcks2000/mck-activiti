@@ -13,17 +13,15 @@ import java.util.List;
 public interface IProcessLogService extends ISuperService<ProcessLog> {
 
     /**
-     * 日志记录
-     *
-     * @param processLog
+     * @param processLog 审批日志
+     * @Description 日志记录
      */
-    void insertLog(ProcessLog processLog);
+    void insertProcessLog(ProcessLog processLog);
 
     /**
-     * 查询历史单操作记录
-     *
-     * @param orderNo
+     * @param orderNo 审批ID
      * @return
+     * @Description 查询历史单操作记录
      */
-    List<ProcessLog> queryOperLog(Long orderNo);
+    List<ProcessLog> queryProcessLog(Long orderNo);
 }
