@@ -26,6 +26,7 @@ public class SysUser extends BaseObject {
     @TableId("user_id")
     private String userId;
 
+    // 最高级用户，parentUserId 为null
     private String parentUserId;
 
     private String userName;

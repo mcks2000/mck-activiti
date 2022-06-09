@@ -11,8 +11,8 @@ import com.mck.activiti.common.entity.ResultCode;
 import com.mck.activiti.common.entity.SysConstant;
 import com.mck.activiti.model.entity.SysUser;
 import com.mck.activiti.mapper.SysUserMapper;
-import com.mck.activiti.service.ICacheService;
-import com.mck.activiti.service.IUserService;
+import com.mck.activiti.common.service.ICacheService;
+import com.mck.activiti.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date 2020-05-18
  */
 @Service
-public class UserServiceImpl implements IUserService {
+public class SysUserServiceImpl implements ISysUserService {
 
     @Autowired
     private HttpServletRequest request;

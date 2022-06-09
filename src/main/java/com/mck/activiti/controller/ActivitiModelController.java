@@ -10,8 +10,7 @@ import com.mck.activiti.common.entity.ResponseUtil;
 import com.mck.activiti.common.entity.ResultCode;
 import com.mck.activiti.common.flow.cmd.HistoryProcessInstanceDiagramCmd;
 import com.mck.activiti.model.entity.FlowDef;
-import com.mck.activiti.service.IFlowInfoService;
-import com.mck.activiti.service.IProcesService;
+import com.mck.activiti.manager.IFlowInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
@@ -49,8 +48,6 @@ import java.util.List;
 public class ActivitiModelController {
     @Autowired
     private RepositoryService repositoryService;
-    @Autowired
-    private IProcesService procesService;
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
@@ -237,7 +234,7 @@ public class ActivitiModelController {
     @GetMapping("startProcess")
     public ResponseResult<String> startProcess(HttpServletRequest request) {
         String vacationId = request.getParameter("vacationId");
-        flowInfoService.resolve(Long.valueOf(vacationId), null);
+        flowInfoService.createProcessInstance(Long.valueOf(vacationId), null);
         return ResponseUtil.makeOKRsp();
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
  * @Author: mck
  * @Date: 2022/5/24 10:17
  **/
-public interface ILogService {
+public interface IProcessLogService {
 
     /**
      * 日志记录

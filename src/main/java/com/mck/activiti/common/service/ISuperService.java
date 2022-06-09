@@ -19,8 +19,8 @@ public interface ISuperService<T> extends IService<T> {
      * 例子如下：
      * String username = sysUser.getUsername();
      * boolean result = super.saveIdempotency(sysUser, lock
-     *                 , LOCK_KEY_USERNAME+username
-     *                 , new QueryWrapper<SysUser>().eq("username", username));
+     * , LOCK_KEY_USERNAME+username
+     * , new QueryWrapper<SysUser>().eq("username", username));
      *
      * @param entity       实体对象
      * @param locker       锁实例
@@ -38,8 +38,8 @@ public interface ISuperService<T> extends IService<T> {
      * 例子如下：
      * String username = sysUser.getUsername();
      * boolean result = super.saveOrUpdateIdempotency(sysUser, lock
-     *                 , LOCK_KEY_USERNAME+username
-     *                 , new QueryWrapper<SysUser>().eq("username", username));
+     * , LOCK_KEY_USERNAME+username
+     * , new QueryWrapper<SysUser>().eq("username", username));
      *
      * @param entity       实体对象
      * @param locker       锁实例
@@ -54,11 +54,12 @@ public interface ISuperService<T> extends IService<T> {
 
     /**
      * 幂等性更新
-     * @param entity 实体对象
-     * @param locker 锁实例
-     * @param lockKey 锁的key
+     *
+     * @param entity       实体对象
+     * @param locker       锁实例
+     * @param lockKey      锁的key
      * @param countWrapper 加上id当条件
-     * @param msg 对象已存在提示信息
+     * @param msg          对象已存在提示信息
      * @return
      * @throws Exception
      */
@@ -66,11 +67,12 @@ public interface ISuperService<T> extends IService<T> {
 
     /**
      * 幂等性更新
+     *
      * @param updateWrapper 更新的条件
-     * @param locker 锁实例
-     * @param lockKey 锁的key
-     * @param countWrapper 加上id当条件
-     * @param msg 对象已存在提示信息
+     * @param locker        锁实例
+     * @param lockKey       锁的key
+     * @param countWrapper  加上id当条件
+     * @param msg           对象已存在提示信息
      * @return
      * @throws Exception
      */

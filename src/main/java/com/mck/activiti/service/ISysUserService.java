@@ -8,7 +8,7 @@ import com.mck.activiti.model.entity.SysUser;
  * @Author mck
  * @Date 2020-05-18
  */
-public interface IUserService {
+public interface ISysUserService {
 
     /**
      * 获取当前登录的用户

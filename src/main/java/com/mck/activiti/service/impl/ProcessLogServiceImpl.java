@@ -1,13 +1,12 @@
 package com.mck.activiti.service.impl;
 
-import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mck.activiti.common.util.CommonUtil;
 import com.mck.activiti.model.entity.ProcessLog;
 import com.mck.activiti.model.entity.SysUser;
 import com.mck.activiti.mapper.ProcessLogMapper;
-import com.mck.activiti.service.ILogService;
-import com.mck.activiti.service.IUserService;
+import com.mck.activiti.service.IProcessLogService;
+import com.mck.activiti.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +21,12 @@ import java.util.List;
  **/
 @Slf4j
 @Service
-public class LogServiceImpl implements ILogService {
+public class ProcessLogServiceImpl implements IProcessLogService {
 
     @Autowired
     private ProcessLogMapper processLogMapper;
     @Autowired
-    private IUserService userService;
+    private ISysUserService userService;
 
     @Override
     @Transactional

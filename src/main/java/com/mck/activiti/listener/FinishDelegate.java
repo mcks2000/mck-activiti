@@ -5,9 +5,9 @@ import com.mck.activiti.common.util.SpringUtils;
 import com.mck.activiti.model.entity.FlowAudit;
 import com.mck.activiti.model.entity.ProcessLog;
 import com.mck.activiti.model.entity.SysUser;
-import com.mck.activiti.service.IFlowInfoService;
-import com.mck.activiti.service.ILogService;
-import com.mck.activiti.service.IUserService;
+import com.mck.activiti.manager.IFlowInfoService;
+import com.mck.activiti.service.IProcessLogService;
+import com.mck.activiti.service.ISysUserService;
 import com.mck.activiti.service.IVacationOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -29,8 +29,8 @@ public class FinishDelegate implements JavaDelegate {
         FlowAudit flowAudit = flowInfoService.queryFlowById(Long.valueOf(flowAuditId));
         vacationOrderService.updateState(flowAudit.getOrderNo(), SysConstant.COMPLETED_STATE);
         //记录日志
-        ILogService logService = SpringUtils.getBean(ILogService.class);
-        IUserService userService = SpringUtils.getBean(IUserService.class);
+        IProcessLogService logService = SpringUtils.getBean(IProcessLogService.class);
+        ISysUserService userService = SpringUtils.getBean(ISysUserService.class);
         ProcessLog bean = new ProcessLog();
         SysUser sysUser = userService.getCurrentUser();
         SysUser sysUserInfo = userService.queryUserById(sysUser.getUserId());

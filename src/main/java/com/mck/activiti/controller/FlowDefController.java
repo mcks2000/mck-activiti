@@ -9,7 +9,7 @@ import com.mck.activiti.model.entity.FlowDef;
 import com.mck.activiti.model.entity.FlowAudit;
 import com.mck.activiti.model.entity.FlowRule;
 import com.mck.activiti.model.entity.SysDict;
-import com.mck.activiti.service.IFlowInfoService;
+import com.mck.activiti.manager.IFlowInfoService;
 import com.mck.activiti.service.ISystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

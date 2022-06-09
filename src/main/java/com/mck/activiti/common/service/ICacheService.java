@@ -1,4 +1,4 @@
-package com.mck.activiti.service;
+package com.mck.activiti.common.service;
 
 /**
  * @Author mck

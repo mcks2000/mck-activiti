@@ -1,6 +1,6 @@
 function getLogin() {
     $.ajax({
-        url: '/user/getLoginInfo',
+        url: '/sysUser/getLoginInfo',
         type: 'POST',
         dataType: 'JSON',
         success: function(res) {

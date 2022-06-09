@@ -59,7 +59,6 @@ public class SuperServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M,
     }
 
 
-
     @Override
     public boolean saveIdempotency(T entity, DistributedLock lock, String lockKey, Wrapper<T> countWrapper) throws Exception {
         return saveIdempotency(entity, lock, lockKey, countWrapper, null);

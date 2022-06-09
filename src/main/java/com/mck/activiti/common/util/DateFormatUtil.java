@@ -93,6 +93,7 @@ public class DateFormatUtil {
     public static LocalDateTime getCurrentDateTime() {
         return parseLocalDateTime(new Date().getTime());
     }
+
     /**
      * yyyy-MM-dd HH:mm:ss SSS
      *
@@ -166,7 +167,7 @@ public class DateFormatUtil {
     }
 
     public static String formatLocalDateShort(LocalDate date) {
-        return formatLocalDate2(date,SHORT_DATE_FORMATTER);
+        return formatLocalDate2(date, SHORT_DATE_FORMATTER);
     }
 
     public static String formatLocalDateTime(LocalDateTime datetime, String pattern) {
@@ -195,16 +196,17 @@ public class DateFormatUtil {
 
     /**
      * 2021-04-27T12:56:45+08:00 转 localDateTime
+     *
      * @param oldDateStr
      * @return
      */
     public static LocalDateTime parseLocalDateTimeEN(String oldDateStr) {
-        if (ObjectUtils.isEmpty(oldDateStr)){
+        if (ObjectUtils.isEmpty(oldDateStr)) {
             return null;
         }
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
         try {
-            Date  date = df.parse(oldDateStr);
+            Date date = df.parse(oldDateStr);
             return parseLocalDateTime(date);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -244,7 +246,7 @@ public class DateFormatUtil {
     }
 
     public static String formatLocalDateTimeTry(LocalDateTime datetime) {
-        if (ObjectUtils.isEmpty(datetime)){
+        if (ObjectUtils.isEmpty(datetime)) {
             return "";
         }
         return datetime.format(DATETIME_FORMATTER);
@@ -452,9 +454,10 @@ public class DateFormatUtil {
 
     /**
      * 前一天
+     *
      * @return
      */
-    public static String preDate(){
+    public static String preDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE, -1);

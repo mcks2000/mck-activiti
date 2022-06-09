@@ -9,8 +9,8 @@ import com.mck.activiti.common.entity.ResultCode;
 import com.mck.activiti.common.entity.SysConstant;
 import com.mck.activiti.common.util.CookieUtil;
 import com.mck.activiti.model.entity.SysUser;
-import com.mck.activiti.service.ICacheService;
-import com.mck.activiti.service.IUserService;
+import com.mck.activiti.common.service.ICacheService;
+import com.mck.activiti.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UserInfoController {
 
     @Autowired
-    private IUserService userService;
+    private ISysUserService userService;
     @Autowired
     private ICacheService cacheService;
 

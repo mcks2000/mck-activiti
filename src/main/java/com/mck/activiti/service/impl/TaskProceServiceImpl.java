@@ -8,9 +8,9 @@ import com.mck.activiti.model.entity.ProcessLog;
 import com.mck.activiti.model.entity.SysUser;
 import com.mck.activiti.model.vo.TaskVo;
 import com.mck.activiti.mapper.TaskMapper;
-import com.mck.activiti.service.ILogService;
+import com.mck.activiti.service.IProcessLogService;
 import com.mck.activiti.service.ITaskProceService;
-import com.mck.activiti.service.IUserService;
+import com.mck.activiti.service.ISysUserService;
 import com.mck.activiti.service.IVacationOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.TaskService;
@@ -32,13 +32,13 @@ public class TaskProceServiceImpl implements ITaskProceService {
     @Autowired
     private TaskMapper taskMapper;
     @Autowired
-    private IUserService userService;
+    private ISysUserService userService;
     @Autowired
     private TaskService taskService;
     @Autowired
     private IVacationOrderService vacationOrderService;
     @Autowired
-    private ILogService logService;
+    private IProcessLogService logService;
 
     @Override
     public Page<TaskVo> queryMyTask(PageBean pageBean) {
@@ -52,6 +52,17 @@ public class TaskProceServiceImpl implements ITaskProceService {
         return taskMapper.queryTaskById(vacationId);
     }
 
+    //
+
+    /**
+     * TODO 1. 添加上一级是谁来审核，2.最后审核时间排在前面，判断如果是最后一位审核则自动跳过
+     * <p>
+     * 1.判断是审核是否通过
+     * 1.1通过，流程往下继续走
+     * 1.2不通过 更新审核状态，在走下一步
+     *
+     * @param taskVo
+     */
     @Override
     public void completeTask(TaskVo taskVo) {
         Map<String, Object> variables = new HashMap<>();

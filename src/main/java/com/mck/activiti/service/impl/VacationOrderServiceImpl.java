@@ -1,21 +1,20 @@
 package com.mck.activiti.service.impl;
 
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mck.activiti.common.entity.PageBean;
 import com.mck.activiti.common.entity.SysConstant;
 import com.mck.activiti.common.service.impl.SuperServiceImpl;
 import com.mck.activiti.common.util.CommonUtil;
+import com.mck.activiti.common.util.ParamAssertUtil;
 import com.mck.activiti.mapper.VacationOrderMapper;
 import com.mck.activiti.model.entity.FlowAudit;
 import com.mck.activiti.model.entity.ProcessLog;
 import com.mck.activiti.model.entity.SysUser;
 import com.mck.activiti.model.entity.VacationOrder;
 import com.mck.activiti.model.vo.VacationOrderVo;
-import com.mck.activiti.service.IFlowInfoService;
-import com.mck.activiti.service.ILogService;
-import com.mck.activiti.service.IUserService;
+import com.mck.activiti.manager.IFlowInfoService;
+import com.mck.activiti.service.IProcessLogService;
+import com.mck.activiti.service.ISysUserService;
 import com.mck.activiti.service.IVacationOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.TaskService;
@@ -39,31 +38,41 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
     @Autowired
     private IFlowInfoService flowInfoService;
     @Autowired
-    private IUserService userService;
+    private ISysUserService userService;
     @Autowired
     private TaskService taskService;
     @Autowired
-    private ILogService logService;
+    private IProcessLogService logService;
 
+    /**
+     * 1.判断是否有上级
+     * 2.保存或者更新
+     * 3.插入审核日志
+     *
+     * @param vacationOrder
+     */
     @Override
     @Transactional
-    public void insertVacationOrder(VacationOrder vacationOrder) {
+    public void saveOrUpdateOrder(VacationOrder vacationOrder) {
+        SysUser currentSysUser = this.parentUserIdIsNull();
         //记录日志
         ProcessLog bean = new ProcessLog();
-        SysUser currentSysUser = userService.getCurrentUser();
         if (null != vacationOrder.getVacationId()) {//更新
             this.updateById(vacationOrder);
             bean.setOrderNo(vacationOrder.getVacationId());
             bean.setOperValue(currentSysUser.getUserName() + "修改审批单");
         } else {
             long orderNo = CommonUtil.genId();
-            bean.setOrderNo(orderNo);
             vacationOrder.setVacationId(orderNo);
             vacationOrder.setVacationState(0);
             vacationOrder.setUserId(currentSysUser.getUserId());
-            vacationOrder.setSystemCode("1001");
-            vacationOrder.setBusiType("2001");
+
+            // TODO 需要把用户角色完善后，才可自定义
+            vacationOrder.setSystemCode("1001");//默认研发部
+            vacationOrder.setBusiType("2001");//默认请假流程
+
             this.saveOrUpdate(vacationOrder);
+            bean.setOrderNo(orderNo);
             bean.setOperValue(currentSysUser.getUserName() + "填写审批单");
         }
 
@@ -93,38 +102,57 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
 
     }
 
-    @Override
-    public boolean submitApply(Long vacationId) {
-        boolean res = true;
-        //匹配流程并指定申请人
-        Map<String, Object> variables = new HashMap<>();
+    /**
+     * 1.查询当前用户是否有上级 有：往下走？异常提醒
+     *
+     * @return
+     * @Description 查询当前用户是否有上级
+     */
+    private SysUser parentUserIdIsNull() {
         SysUser currentSysUser = userService.getCurrentUser();
-        String processId = "";
+        ParamAssertUtil.notEmpty(currentSysUser.getParentUserId(), "无上级，无需发起请假");
+        return currentSysUser;
+    }
+
+    /**
+     * 1.判断当前用户是否有上级  是：返回true？往下走
+     * 1.1返回true  请求结束  无上级，无需发起请假
+     * 2.判断该流程是否已经发起申请 是：返回true？往下走
+     * 2.1返回true  请求结束
+     * 2.2创建流程实例，并将流程实例添加到 工作流任务中
+     * 3.将流程审核流转到上一级
+     * 4.更新审核状态，增加审核日志
+     *
+     * @param vacationId 审批单ID
+     * @return
+     * @Description 提交流程
+     */
+    @Override
+    @Transactional
+    public boolean submitApply(Long vacationId) {
+        SysUser currentSysUser = this.parentUserIdIsNull();
+
         //匹配流程之前查询是否已经匹配过
         FlowAudit flowAudit = flowInfoService.queryFlowAuditByOrderNo(vacationId);
-        if (ObjectUtil.isNull(flowAudit)) {
-            variables.put("applyuser", currentSysUser.getUserId());
-            processId = flowInfoService.resolve(vacationId, variables);
-        } else {
-            processId = String.valueOf(flowAudit.getProcessId());
-        }
-        if (StrUtil.isBlank(processId)) {
-            res = false;
-            return res;
-        }
-        //流程流转，对应工作流提交成功
+        ParamAssertUtil.isEmpty(flowAudit, "无上级，无需发起请假");
+
+
+        //匹配流程并指定申请人
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("applyuser", currentSysUser.getUserId());
+        String processId = flowInfoService.createProcessInstance(vacationId, variables);
+
+
+        // 将流程审核流转到上一级
         Task task = flowInfoService.queryTaskByInstId(processId);
-        if (ObjectUtil.isNull(task)) {
-            res = false;
-            return res;
-        }
+        ParamAssertUtil.notNull(task, "任务未创建成功，请稍后再试");
+
         variables.put("subState", "success");
-        log.info("------------->当前办理任务ID:{}", task.getId());
         taskService.complete(task.getId(), variables);
+
+
         //更新审批单状态
         this.updateState(vacationId, SysConstant.REVIEW_STATE);
-
-        // TODO 处理parentId 为空的逻辑
         //记录日志
         ProcessLog bean = new ProcessLog();
         SysUser sysUser = userService.queryUserById(currentSysUser.getParentUserId());
@@ -135,8 +163,9 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
         bean.setApprovStatu("submitApply");
         bean.setOperValue(currentSysUser.getUserName() + "提交申请,待【" + sysUser.getUserName() + "】审核");
         logService.insertLog(bean);
-        return res;
+        return true;
     }
+
 
     @Override
     @Transactional

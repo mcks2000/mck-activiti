@@ -3,7 +3,7 @@ package com.mck.activiti;
 
 import cn.hutool.core.collection.IterUtil;
 import cn.hutool.core.util.IdUtil;
-import com.mck.activiti.service.ICacheService;
+import com.mck.activiti.common.service.ICacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.ManagementService;
 import org.activiti.engine.RepositoryService;

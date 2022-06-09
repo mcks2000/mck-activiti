@@ -1,4 +1,4 @@
-package com.mck.activiti.service;
+package com.mck.activiti.manager;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mck.activiti.common.entity.PageBean;
@@ -57,17 +57,18 @@ public interface IFlowInfoService {
      * 流程匹配服务
      *
      * @param orderId   审批单ID
-     * @param variables
+     * @param variables 审核相关变量 eg.{"applyuser":"userId","subState":"success"}
      */
-    String resolve(Long orderId, Map<String, Object> variables);
+    String createProcessInstance(Long orderId, Map<String, Object> variables);
 
     /**
      * 启动流程
      *
-     * @param flowAudit
-     * @param variables
+     * @param flowDefId   流程规则Id
+     * @param flowAuditId 流程审核Id
+     * @param variables   审核相关变量 eg.{"applyuser":"userId","subState":"success"}
      */
-    String runFlow(FlowAudit flowAudit, Map<String, Object> variables);
+    String runFlow(String flowDefId, String flowAuditId, Map<String, Object> variables);
 
     /**
      * 记录流转主表信息
@@ -75,6 +76,13 @@ public interface IFlowInfoService {
      * @param flowAudit
      */
     void insertFlowAudit(FlowAudit flowAudit);
+
+    /**
+     * 记录流转主表信息
+     *
+     * @param flowAudit
+     */
+    void insertFlowAuditNoId(FlowAudit flowAudit);
 
     /**
      * 根据流程实例查询当前任务信息

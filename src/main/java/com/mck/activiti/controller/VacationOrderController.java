@@ -7,7 +7,7 @@ import com.mck.activiti.model.entity.ProcessLog;
 import com.mck.activiti.model.entity.SysDict;
 import com.mck.activiti.model.entity.VacationOrder;
 import com.mck.activiti.model.vo.VacationOrderVo;
-import com.mck.activiti.service.ILogService;
+import com.mck.activiti.service.IProcessLogService;
 import com.mck.activiti.service.ISystemService;
 import com.mck.activiti.service.IVacationOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class VacationOrderController {
     @Autowired
     private ISystemService systemService;
     @Autowired
-    private ILogService logService;
+    private IProcessLogService logService;
 
     /**
      * 请假列表查询
@@ -83,8 +83,8 @@ public class VacationOrderController {
      */
     @PostMapping("saveOrder")
     @ResponseBody
-    public ResponseResult<String> saveOrder(@RequestBody VacationOrder vacationOrder) {
-        vacationOrderService.insertVacationOrder(vacationOrder);
+    public ResponseResult<String> saveOrUpdateOrder(@RequestBody VacationOrder vacationOrder) {
+        vacationOrderService.saveOrUpdateOrder(vacationOrder);
         return ResponseUtil.makeOKRsp();
     }
 

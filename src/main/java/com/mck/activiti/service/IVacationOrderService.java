@@ -18,7 +18,7 @@ public interface IVacationOrderService extends ISuperService<VacationOrder> {
      *
      * @param vacationOrder
      */
-    void insertVacationOrder(VacationOrder vacationOrder);
+    void saveOrUpdateOrder(VacationOrder vacationOrder);
 
     /**
      * 请假单列表查询

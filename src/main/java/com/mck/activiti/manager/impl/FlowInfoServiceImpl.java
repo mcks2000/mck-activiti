@@ -1,13 +1,13 @@
-package com.mck.activiti.service.impl;
+package com.mck.activiti.manager.impl;
 
 import cn.hutool.core.collection.IterUtil;
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mck.activiti.common.entity.PageBean;
 import com.mck.activiti.common.util.CommonUtil;
+import com.mck.activiti.common.util.ParamAssertUtil;
 import com.mck.activiti.model.entity.FlowDef;
 import com.mck.activiti.model.entity.FlowAudit;
 import com.mck.activiti.model.entity.FlowRule;
@@ -15,8 +15,9 @@ import com.mck.activiti.model.entity.VacationOrder;
 import com.mck.activiti.mapper.FlowDefMapper;
 import com.mck.activiti.mapper.FlowAuditMapper;
 import com.mck.activiti.mapper.FlowRuleMapper;
-import com.mck.activiti.service.IFlowInfoService;
+import com.mck.activiti.manager.IFlowInfoService;
 import com.mck.activiti.service.IVacationOrderService;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -30,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description:
+ * @Description: 流程管理服务
  * @Author: mck
  * @Date: 2022/5/24 10:17
  **/
@@ -106,69 +107,79 @@ public class FlowInfoServiceImpl implements IFlowInfoService {
         return flowRulePage;
     }
 
+    /**
+     * 1.判断申请单是否有匹配的流程规则
+     * 2.执行创建流程实例
+     * 3.记录流程信息
+     *
+     * @param orderId   审批单ID
+     * @param variables 审核相关变量 eg.{"applyuser":"userId","subState":"success"}
+     * @return
+     * @Description 创建流程实例
+     */
     @Override
-    public String resolve(Long orderId, Map<String, Object> variables) {
+    public String createProcessInstance(Long orderId, Map<String, Object> variables) {
         //查询所有流程规则
         List<FlowRule> flowRules = flowRuleMapper.selectList(null);
-        if (IterUtil.isEmpty(flowRules)) {
-            throw new RuntimeException("审批单号:" + orderId + ",未匹配到流程规则");
-        }
+        ParamAssertUtil.notEmpty(flowRules, "审批单号:" + orderId + ",未匹配到流程规则");
+
         //查询审批单信息
-        VacationOrder vacationOrder = vacationOrderService.queryVacation(orderId);
+        VacationOrder vacationOrder = vacationOrderService.getById(orderId);
         //规则匹配
         FlowRule currFlowRule = null;
         for (FlowRule flowRule : flowRules) {
             if (CommonUtil.checkKeywordsTrue(flowRule.getSystemCode(), vacationOrder.getSystemCode())
                     && CommonUtil.checkKeywordsTrue(flowRule.getBusiType(), vacationOrder.getBusiType())) {
-                log.info("-------->流程规则匹配成功:{}", orderId);
                 currFlowRule = flowRule;
                 break;
             }
         }
-        if (ObjectUtil.isNull(currFlowRule)) {
-            log.info("未配置流程规则");
-            throw new RuntimeException("未配置流程规则");
-        }
+        ParamAssertUtil.notNull(flowRules, "审批单号:" + orderId + ",未匹配到流程规则");
 
-        log.info("审批单:{},匹配到工作流，匹配规则:{}", orderId, JSONUtil.toJsonStr(currFlowRule));
-        //查询流程定义信息
-        FlowDef flowDef = this.queryFlowDef(currFlowRule.getDefId());
+
+        Long flowAuditId = CommonUtil.genId();
+        String processId = this.runFlow(String.valueOf(currFlowRule.getDefId()), String.valueOf(flowAuditId), variables);
+
+
         //记录流程主表信息
         FlowAudit flowAudit = new FlowAudit();
+        flowAudit.setFlowAuditId(flowAuditId);
+        flowAudit.setProcessId(Long.valueOf(processId));
         flowAudit.setOrderNo(orderId);
-        flowAudit.setFlowDefId(flowDef.getFlowCode());
+        flowAudit.setFlowDefId(String.valueOf(currFlowRule.getDefId()));
         flowAudit.setRuleId(currFlowRule.getRuleId());
-        this.insertFlowAudit(flowAudit);
+        this.insertFlowAuditNoId(flowAudit);
         //运行流程
-        String processId = this.runFlow(flowAudit, variables);
         return processId;
     }
 
+    /**
+     * @param flowDefId   流程规则Id
+     * @param flowAuditId 流程审核Id
+     * @param variables   审核相关变量 eg.{"applyuser":"userId","subState":"success"}
+     * @return
+     * @Description 执行创建流程实例
+     */
     @Override
-    public String runFlow(FlowAudit flowAudit, Map<String, Object> variables) {
-        String processId = "";
-        try {
-            log.info("-------->启动流程开始:{}", flowAudit.getOrderNo());
-            ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(flowAudit.getFlowDefId(), String.valueOf(flowAudit.getFlowAuditId()), variables);
-            processId = processInstance.getProcessInstanceId();
-            log.info("------>流程启动结束flowId:{}", processId);
-
-            flowAudit.setProcessId(Long.valueOf(processId));
-            flowAuditMapper.updateById(flowAudit);
-        } catch (Exception e) {
-            log.error("------------->流程启动失败.....");
-            e.printStackTrace();
-        }
-        return processId;
+    @SneakyThrows
+    public String runFlow(String flowDefId, String flowAuditId, Map<String, Object> variables) {
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(flowDefId, flowAuditId, variables);
+        return processInstance.getProcessInstanceId();
     }
 
     @Override
-    @Transactional
     public void insertFlowAudit(FlowAudit flowAudit) {
         flowAudit.setFlowAuditId(CommonUtil.genId());
         flowAudit.setFlowState(1);
         flowAuditMapper.insert(flowAudit);
     }
+
+    @Override
+    public void insertFlowAuditNoId(FlowAudit flowAudit) {
+        flowAudit.setFlowState(1);
+        flowAuditMapper.insert(flowAudit);
+    }
+
 
     @Override
     public Task queryTaskByInstId(String processInstanceId) {
@@ -180,6 +191,7 @@ public class FlowInfoServiceImpl implements IFlowInfoService {
     public FlowAudit queryFlowAuditByOrderNo(Long orderNo) {
         QueryWrapper<FlowAudit> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("order_no", orderNo);
+        queryWrapper.last("limit 1");
         return flowAuditMapper.selectOne(queryWrapper);
     }
 

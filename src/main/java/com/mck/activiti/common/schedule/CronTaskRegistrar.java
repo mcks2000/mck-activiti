@@ -42,7 +42,7 @@ public class CronTaskRegistrar implements DisposableBean {
     }
 
     /**
-     * @param task  取消任务
+     * @param task 取消任务
      * @Description 添加定时任务
      */
     public void removeCronTask(Runnable task) {
