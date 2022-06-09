@@ -9,8 +9,9 @@ import com.mck.activiti.common.entity.ResponseTableResult;
 import com.mck.activiti.common.entity.ResponseUtil;
 import com.mck.activiti.common.entity.ResultCode;
 import com.mck.activiti.common.flow.cmd.HistoryProcessInstanceDiagramCmd;
-import com.mck.activiti.model.entity.FlowDef;
-import com.mck.activiti.manager.IFlowInfoService;
+import com.mck.activiti.module.flow.model.entity.FlowDef;
+import com.mck.activiti.module.flow.manager.IFlowManagerService;
+import com.mck.activiti.module.flow.service.IFlowDefService;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
@@ -51,9 +52,11 @@ public class ActivitiModelController {
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
-    private IFlowInfoService flowInfoService;
+    private IFlowManagerService flowInfoService;
     @Autowired
     private ManagementService managementService;
+    @Autowired
+    private IFlowDefService flowDefService;
 
     /**
      * 新建流程
@@ -183,7 +186,7 @@ public class ActivitiModelController {
             flowDef.setFlowCode(process.getId());
             flowDef.setFlowName(process.getName());
         }
-        flowInfoService.insertFlowDef(flowDef);
+        flowDefService.insertFlowDef(flowDef);
         return ResponseUtil.makeOKRsp("部署成功");
 
     }

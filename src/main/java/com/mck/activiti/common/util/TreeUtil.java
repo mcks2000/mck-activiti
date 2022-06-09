@@ -1,6 +1,6 @@
 package com.mck.activiti.common.util;
 
-import com.mck.activiti.model.vo.MenuVo;
+import com.mck.activiti.module.system.model.vo.MenuVo;
 
 import java.util.ArrayList;
 import java.util.List;

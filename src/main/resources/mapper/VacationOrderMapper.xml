@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mck.activiti.mapper.VacationOrderMapper">
+<mapper namespace="com.mck.activiti.module.flow.mapper.VacationOrderMapper">
 
 
-    <select id="queryVacationOrder" resultType="com.mck.activiti.model.vo.VacationOrderVo" parameterType="string">
+    <select id="queryVacationOrder" resultType="com.mck.activiti.module.flow.model.vo.VacationOrderVo"
+            parameterType="string">
         SELECT
         t.*, t2.user_name,
         t.vacation_id AS orderNo,

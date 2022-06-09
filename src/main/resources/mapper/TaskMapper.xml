@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mck.activiti.mapper.TaskMapper">
+<mapper namespace="com.mck.activiti.module.flow.mapper.TaskMapper">
 
 
-    <select id="queryMyTask" parameterType="string" resultType="com.mck.activiti.model.vo.TaskVo">
+    <select id="queryMyTask" parameterType="string" resultType="com.mck.activiti.module.flow.model.vo.TaskVo">
         SELECT
         t.vacation_id,
         t.user_id,
@@ -29,7 +29,7 @@
         AND t3.ASSIGNEE_ = #{userId}
     </select>
     <!--查询审批单对应的任务信息-->
-    <select id="queryTaskById" resultType="com.mck.activiti.model.vo.TaskVo" parameterType="long">
+    <select id="queryTaskById" resultType="com.mck.activiti.module.flow.model.vo.TaskVo" parameterType="long">
         SELECT
         t.vacation_id,
         t.user_id,

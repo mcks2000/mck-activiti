@@ -3,11 +3,10 @@ package com.mck.activiti.controller;
 import com.mck.activiti.common.entity.ResponseResult;
 import com.mck.activiti.common.entity.ResponseUtil;
 import com.mck.activiti.common.entity.SysConstant;
-import com.mck.activiti.model.entity.SysDict;
-import com.mck.activiti.service.ISystemService;
+import com.mck.activiti.module.system.model.entity.SysDict;
+import com.mck.activiti.module.system.service.ISysDictService;
+import com.mck.activiti.module.system.service.ISystemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +23,8 @@ public class IndexController {
 
     @Autowired
     private ISystemService systemService;
+    @Autowired
+    private ISysDictService sysDictService;
 
     @RequestMapping("queryMenu")
     public Map<String, Object> queryMenu() {
@@ -33,7 +34,7 @@ public class IndexController {
 
     @RequestMapping("querySysDict")
     public ResponseResult<List<SysDict>> querySysDict() {
-        List<SysDict> sysDicts = systemService.querySysDictInfo(SysConstant.SYSTEM_CODE);
+        List<SysDict> sysDicts = sysDictService.querySysDictInfo(SysConstant.SYSTEM_CODE);
         return ResponseUtil.makeOKRsp(sysDicts);
     }
 }

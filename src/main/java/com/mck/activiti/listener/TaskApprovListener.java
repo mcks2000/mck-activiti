@@ -1,8 +1,8 @@
 package com.mck.activiti.listener;
 
 import com.mck.activiti.common.util.SpringUtils;
-import com.mck.activiti.model.entity.SysUser;
-import com.mck.activiti.service.ISysUserService;
+import com.mck.activiti.module.system.model.entity.SysUser;
+import com.mck.activiti.module.system.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;

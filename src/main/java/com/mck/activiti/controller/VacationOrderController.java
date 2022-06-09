@@ -3,13 +3,13 @@ package com.mck.activiti.controller;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mck.activiti.common.entity.*;
-import com.mck.activiti.model.entity.ProcessLog;
-import com.mck.activiti.model.entity.SysDict;
-import com.mck.activiti.model.entity.VacationOrder;
-import com.mck.activiti.model.vo.VacationOrderVo;
-import com.mck.activiti.service.IProcessLogService;
-import com.mck.activiti.service.ISystemService;
-import com.mck.activiti.service.IVacationOrderService;
+import com.mck.activiti.module.flow.model.entity.ProcessLog;
+import com.mck.activiti.module.system.model.entity.SysDict;
+import com.mck.activiti.module.flow.model.entity.VacationOrder;
+import com.mck.activiti.module.flow.model.vo.VacationOrderVo;
+import com.mck.activiti.module.flow.service.IProcessLogService;
+import com.mck.activiti.module.system.service.ISysDictService;
+import com.mck.activiti.module.flow.service.IVacationOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,9 +29,9 @@ public class VacationOrderController {
     @Autowired
     private IVacationOrderService vacationOrderService;
     @Autowired
-    private ISystemService systemService;
-    @Autowired
     private IProcessLogService logService;
+    @Autowired
+    private ISysDictService sysDictService;
 
     /**
      * 请假列表查询
@@ -49,7 +49,7 @@ public class VacationOrderController {
 
     @RequestMapping("toAdd")
     public String toAdd(Model model, @RequestParam(value = "orderNo", required = false) String orderNo) {
-        List<SysDict> typeList = systemService.querySysDictInfo(SysConstant.VACATION_TYPE);
+        List<SysDict> typeList = sysDictService.querySysDictInfo(SysConstant.VACATION_TYPE);
         model.addAttribute("typeList", typeList);
         if (StrUtil.isNotBlank(orderNo)) {//编辑
             VacationOrder vacationOrder = vacationOrderService.queryVacation(Long.valueOf(orderNo));
