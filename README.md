@@ -1,9 +1,9 @@
-# mck-activiti
 
-工作流管理
+# 工作流管理
 
 [![springboot Version](https://img.shields.io/badge/springboot-%3E=2.3.4.RELEASE-brightgreen.svg?maxAge=2592000&color=yellow)](https://spring.io/projects/spring-boot)
 [![JDK Version](https://img.shields.io/badge/JDK-%3E=1.8.0_191-gread.svg?maxAge=2592000)](https://www.oracle.com/java/technologies/downloads/)
+[![maven](https://img.shields.io/badge/maven-%3E=3.6.3-green?maxAge=2592000&color=blue)](https://github.com/mcks2000/mck-activiti/blob/main/LICENSE)
 [![Mysql Version](https://img.shields.io/badge/mysql-%3E=8.0.19-brightgreen.svg?maxAge=2592000&color=orange)](https://www.mysql.com/)
 [![Activiti Version](https://img.shields.io/badge/Activiti-=5.22.0-brightgreen.svg?maxAge=2592000)](https://www.activiti.org/)
 [![Layui Version](https://img.shields.io/badge/layui-=2.5.5-brightgreen.svg?maxAge=2592000&color=critical)](https://github.com/sentsin/layui)
@@ -36,7 +36,7 @@
 | lisi | wangwu的直接上级领导      |
 | zhangsan| lisi的直接上级领导，最高领导(无需填写请假申请)|
 
-##### 本地开发建议下载Docker 安装mysql和redis
+#### 本地开发建议下载Docker 安装mysql和redis
 
 - 1.下载按照docker [Docker下载地址](https://www.docker.com/get-started/)
 - 2.使用一下命令按照数据库和redis
@@ -50,33 +50,67 @@ docker run -d --name redis_rc-alpine -p 6379:6379 redis:rc-alpine --requirepass 
 
 * 官方网站：
 
-* 文档地址：[http://easyadmin.99php.cn/docs](https://mcks2000.github.io/mck-activiti/)
+* 文档地址：[https://mcks2000.github.io/mck-activiti/](https://mcks2000.github.io/mck-activiti/)
 
 * 演示地址：
 
 ## 代码仓库
 
-* GitHub地址：[https://github.com/zhongshaofa/easyadmin](https://github.com/mcks2000/mck-activiti)
+* GitHub地址：[https://mcks2000.github.io/mck-activiti/](https://github.com/mcks2000/mck-activiti)
 
 * Gitee地址：
 *
 
-模块说明
+## 接口规范
+
+* 按照restful接口设计规范
+  GET （SELECT）：从服务器检索特定资源，或资源列表。
+
+  POST （CREATE）：在服务器上创建一个新的资源。
+
+  PUT （UPDATE）：更新服务器上的资源，提供整个资源。
+
+  PATCH （UPDATE）：更新服务器上的资源，仅提供更改的属性。
+
+  DELETE （DELETE）：从服务器删除资源。
+
+* 接口尽量使用名词，禁止使用动词，下面是一些例子
 
 ```java
-mck-activiti -- 父项目
-│  ├─com.mck.activiti.common -- 公共依賴
-│  │  ├─com.mck.activiti.common.config -- 公共配置
-│  │  │  ├─com.mck.activiti.common.config.db -- mybatis相關使用配置
-│  │  ├─com.mck.activiti.common.entity -- 共同實體
-│  │  ├─com.mck.activiti.common.flow -- 流程繪製
-│  │  ├─com.mck.activiti.common.schedule -- 定時任務
-│  │  ├─com.mck.activiti.common.util -- 工具類
-│  ├─com.mck.activiti.controller -- 服務控制
-│  ├─com.mck.activiti.listener -- 流程監聽
-│  ├─com.mck.activiti.mapper -- mybatis映射
-│  ├─com.mck.activiti.service -- 功能服務
+GET         /zoos：列出所有动物园
+POST        /zoos：新建一个动物园
+GET         /zoos/{id}：获取某个指定动物园的信息
+PUT         /zoos/{id}：更新某个指定动物园的信息（提供该动物园的全部信息）
+PATCH       /zoos/{id}：更新某个指定动物园的信息（提供该动物园的部分信息）
+DELETE      /zoos/{id}：删除某个动物园
+GET         /zoos/{id}/animals：列出某个指定动物园的所有动物
+DELETE      /zoos/{zId}/animals/{aId}：删除某个指定动物园的指定动物
 ```
+
+### 后端返回JSON
+
+* 后端统一返回 com.central.common.model.Result 对象
+    * datas：具体响应的其他信息
+    * resp_code：响应码，目前200是成功、0是失败   200=0  0=1
+    * resp_msg：响应消息
+
+## 模块说明
+
+```lua
+mck-activiti -- 父项目
+│  ├─com.mck.activiti.common -- 公共依赖
+│  │  ├─com.mck.activiti.common.config -- 公共配置
+│  │  │  ├─com.mck.activiti.common.config.db -- mybatis相关使用配置
+│  │  ├─com.mck.activiti.common.entity -- 共同实体
+│  │  ├─com.mck.activiti.common.flow -- 流程绘制
+│  │  ├─com.mck.activiti.common.schedule -- 定時任务
+│  │  ├─com.mck.activiti.common.util -- 工具类
+│  ├─com.mck.activiti.controller -- 服务控制
+│  ├─com.mck.activiti.listener -- 流程监听
+│  ├─com.mck.activiti.mapper -- mybatis映射
+│  ├─com.mck.activiti.service -- 功能服务
+```
+
 ## 特别感谢
 
 以下项目排名不分先后
