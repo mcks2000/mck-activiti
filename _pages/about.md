@@ -1,5 +1,5 @@
 ---
-title: 关于-mck-activiti
+title: 项目简介
 author: mck
 date: 2022-02-04
 category: Jekyll
