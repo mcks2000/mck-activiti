@@ -116,11 +116,11 @@ a `cover` field to the page metadata:
 ```diff
   ---
   title: Page with cover image
-  author: Tao He
+  author: mck
   date: 2022-05-24
   category: Jekyll
   layout: post
-+ cover: /jekyll-gitbook/dinosaur.gif
++ cover: /mck-activiti/dinosaur.gif
   ---
 ```
 
@@ -132,7 +132,7 @@ The effect can be previewed from
 
 This work is open sourced under the Apache License, Version 2.0.
 
-Copyright 2019 Tao He.
+Copyright 2022 mck.
 
 [1]: https://pages.github.com
 [2]: https://pages.github.com/themes

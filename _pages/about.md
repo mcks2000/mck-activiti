@@ -1,6 +1,6 @@
 ---
-title: About
-author: Tao He
+title: 关于-mck-activiti
+author: mck
 date: 2022-02-04
 category: Jekyll
 layout: post

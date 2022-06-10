@@ -1,4 +1,6 @@
-# mck-activiti
+---
+layout: home
+---
 
 工作流管理
 

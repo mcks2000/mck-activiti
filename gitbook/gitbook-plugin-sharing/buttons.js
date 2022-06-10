@@ -8,6 +8,14 @@ require(['gitbook', 'jquery'], function(gitbook, $) {
                 window.open('http://www.facebook.com/sharer/sharer.php?s=100&p[url]='+encodeURIComponent(location.href));
             }
         },
+        'Github': {
+                    'label': 'Github',
+                    'icon': 'fa fa-github',
+                    'onClick': function(e) {
+                        e.preventDefault();
+                        window.open('https://github.com/mcks2000/mck-activiti');
+             }
+        },
         'twitter': {
             'label': 'Twitter',
             'icon': 'fa fa-twitter',
