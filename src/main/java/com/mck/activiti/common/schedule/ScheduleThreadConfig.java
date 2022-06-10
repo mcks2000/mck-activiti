@@ -1,4 +1,4 @@
-package com.mck.activiti.common.config.thread;
+package com.mck.activiti.common.schedule;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
