@@ -154,5 +154,3 @@ mck-activiti--父项目
 ## 捐赠支持
 
 开源项目不易，若此项目能得到你的青睐，可以捐赠支持作者持续开发与维护，感谢所有支持开源的朋友。
-
-![微信二维码](https://dolphin-expo.oss-cn-shenzhen.aliyuncs.com/upload/2021/06/08/Dingtalk_20220610144040.jpg)
