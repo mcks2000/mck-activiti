@@ -39,5 +39,14 @@ public class FlowDef extends BaseObject {
      */
     private Integer flowState;
 
+    /**
+     * activiti流程ID
+     */
+    private String modelId;
+
+    /**
+     * activiti 部署ID，每次部署都更新
+     */
+    private String deploymentId;
 
 }

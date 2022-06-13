@@ -1,5 +1,6 @@
 package com.mck.activiti.controller;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -9,9 +10,12 @@ import com.mck.activiti.common.entity.ResponseTableResult;
 import com.mck.activiti.common.entity.ResponseUtil;
 import com.mck.activiti.common.entity.ResultCode;
 import com.mck.activiti.common.flow.cmd.HistoryProcessInstanceDiagramCmd;
+import com.mck.activiti.common.util.ParamAssertUtil;
 import com.mck.activiti.module.flow.model.entity.FlowDef;
 import com.mck.activiti.module.flow.manager.IFlowManagerService;
+import com.mck.activiti.module.flow.model.entity.FlowRule;
 import com.mck.activiti.module.flow.service.IFlowDefService;
+import com.mck.activiti.module.flow.service.IFlowRuleService;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
@@ -57,6 +61,8 @@ public class ActivitiModelController {
     private ManagementService managementService;
     @Autowired
     private IFlowDefService flowDefService;
+    @Autowired
+    private IFlowRuleService flowRuleService;
 
     /**
      * 新建流程
@@ -156,6 +162,9 @@ public class ActivitiModelController {
 
     /**
      * 部署流程
+     * 新建流程 deploymentId = null，创建后生成一个 deploymentId
+     * 更新流程 deploymentId 会被更新
+     *
      *
      * @param request
      * @param redirectAttributes
@@ -169,10 +178,11 @@ public class ActivitiModelController {
             throw new BizException(ResultCode.NOT_FOUND.code, "系统异常,流程ID不存在");
         }
         Model modelData = this.repositoryService.getModel(modelId);
+
         ObjectNode modelNode = (ObjectNode) new ObjectMapper().readTree(repositoryService.getModelEditorSource(modelData.getId()));
         byte[] bpmnBytes = null;
-
         BpmnModel model = new BpmnJsonConverter().convertToBpmnModel(modelNode);
+        this.checkDeploymentName(modelData,model);
         bpmnBytes = new BpmnXMLConverter().convertToXML(model);
         String processName = modelData.getName() + ".bpmn20.xml";
         Deployment deployment = repositoryService.createDeployment().name(modelData.getName()).addString(processName, new String(bpmnBytes, "utf-8")).deploy();
@@ -185,14 +195,43 @@ public class ActivitiModelController {
         for (Process process : processes) {
             flowDef.setFlowCode(process.getId());
             flowDef.setFlowName(process.getName());
+            flowDef.setModelId(modelData.getId());
+            flowDef.setDeploymentId(deployment.getId());
         }
-        flowDefService.insertFlowDef(flowDef);
+        flowDefService.saveOrUpdateFlowDef(flowDef);
         return ResponseUtil.makeOKRsp("部署成功");
 
     }
 
     /**
+     * 判断流程创建，名称是否重复
+     * 1. 判断是否是新流程 是：否
+     * 1.1 是：判断流程名称是否重复 是：否
+     * 1.1.1 是：提示名称重复
+     * 1.1.2 否：向下执行
+     * 1.2 否：向下执行
+     * @param modelData
+     * @return
+     */
+    private void checkDeploymentName(Model modelData,BpmnModel model){
+        String modelId= modelData.getId();
+        String id = model.getProcesses().get(0).getId();
+        String name = model.getProcesses().get(0).getName();
+        List<FlowDef> flowDefList = flowDefService.queryFlowDefListByFlowCode(id, name);
+        if (ObjectUtil.isEmpty(modelData.getDeploymentId())){
+            ParamAssertUtil.isTrue(flowDefList.size()<=0?true:false,"流程名称ID重复，请从新编辑");
+        }else {
+            for(FlowDef flowDef:flowDefList){
+                ParamAssertUtil.isTrue(flowDef.getModelId().equals(modelId),"流程名称ID重复，请从新编辑");
+            }
+        }
+    }
+
+    /**
      * 删除流程
+     * 1. 查询流程ID是否存在
+     * 2. 查询流程ID是否正在被使用
+     * 3. 删除流程
      *
      * @param request
      * @return
@@ -200,9 +239,11 @@ public class ActivitiModelController {
     @GetMapping("delModel")
     public ResponseResult<String> delModel(HttpServletRequest request) {
         String modelId = request.getParameter("modelId");
-        if (StrUtil.isBlank(modelId)) {
-            throw new BizException(ResultCode.INTERNAL_SERVER_ERROR.code, "流程ID不存在!");
-        }
+        ParamAssertUtil.notNull(modelId,"流程ID不存在!");
+
+        List<FlowRule> flowRules = flowRuleService.queryFlowRuleByModelId(modelId);
+        ParamAssertUtil.isEmpty(flowRules,"该流程已被使用，无法删除!");
+
         repositoryService.deleteModel(modelId);
         return ResponseUtil.makeOKRsp("删除流程成功!");
     }

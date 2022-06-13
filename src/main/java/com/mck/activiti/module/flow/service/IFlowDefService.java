@@ -1,6 +1,7 @@
 package com.mck.activiti.module.flow.service;
 
 import com.mck.activiti.common.service.ISuperService;
+import com.mck.activiti.module.flow.model.entity.FlowAudit;
 import com.mck.activiti.module.flow.model.entity.FlowDef;
 
 import java.util.List;
@@ -32,5 +33,27 @@ public interface IFlowDefService extends ISuperService<FlowDef> {
      *
      * @param flowDef
      */
-    void insertFlowDef(FlowDef flowDef);
+    void saveOrUpdateFlowDef(FlowDef flowDef);
+
+    /**
+     * @param modelId      流程ID
+     * @param deploymentId 部署ID
+     * @Description 根据 {modelId} 更新 {deploymentId}
+     */
+    void updateByModeId(String modelId, String deploymentId);
+
+    /**
+     * @param flowCode 流程编码(流程图的编码)
+     * @param flowName 流程名称
+     * @return
+     * @Description 通过 {flowCode} 查询部署列表
+     */
+    List<FlowDef> queryFlowDefListByFlowCode(String flowCode, String flowName);
+
+    /**
+     * @param modelId activiti流程ID
+     * @return List<FlowDef>
+     * @Description 通过 {modelId} 查询流程ID是否已部署
+     */
+    List<FlowDef> queryFlowDefByModelId(String modelId);
 }

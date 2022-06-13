@@ -55,7 +55,7 @@ public class FlowManagerServiceImpl implements IFlowManagerService {
     @Override
     public String createProcessInstance(Long orderId, Map<String, Object> variables) {
         //查询所有流程规则
-        List<FlowRule> flowRules = flowRuleService.list();
+        List<FlowRule> flowRules = flowRuleService.queryList();
         ParamAssertUtil.notEmpty(flowRules, "审批单号:" + orderId + ",未匹配到流程规则");
 
         //查询审批单信息
@@ -73,7 +73,7 @@ public class FlowManagerServiceImpl implements IFlowManagerService {
 
 
         Long flowAuditId = CommonUtil.genId();
-        String processId = this.executeCreateFlow(String.valueOf(currFlowRule.getDefId()), String.valueOf(flowAuditId), variables);
+        String processId = this.executeCreateFlow(currFlowRule.getFlowCode(), String.valueOf(flowAuditId), variables);
 
 
         //记录流程主表信息
@@ -82,6 +82,7 @@ public class FlowManagerServiceImpl implements IFlowManagerService {
         flowAudit.setProcessId(Long.valueOf(processId));
         flowAudit.setOrderNo(orderId);
         flowAudit.setFlowDefId(String.valueOf(currFlowRule.getDefId()));
+        flowAudit.setFlowCode(currFlowRule.getFlowCode());
         flowAudit.setRuleId(currFlowRule.getRuleId());
         flowAuditService.insertFlowAudit(flowAudit);
         //运行流程

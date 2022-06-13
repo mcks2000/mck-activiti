@@ -30,9 +30,14 @@ public class FlowAudit extends BaseObject {
     private Long orderNo;
 
     /**
-     * 流程定义编码(创建流程时设置的)
+     * 流程定义编码id(创建流程时设置的)
      */
     private String flowDefId;
+
+    /**
+     * 流程定义编码(创建流程时设置的)
+     */
+    private String flowCode;
 
     /**
      * 流程ID(启动流程时生成的编码)

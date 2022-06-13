@@ -23,8 +23,8 @@ public enum NumEnum {
     ONE_FLOW_AUDIT_STATE(1, "Anomaly", "正常"),
 
     // FlowDef flowState 启用状态(0:启用 1:禁用)
-    ZERO_FLOW_DEF_STATE(0, "Disable", "禁用"),
-    ONE_FLOW_DEF_STATE(1, "Enable", "启用"),
+    ZERO_FLOW_DEF_STATE(0, "Disable", "启用"),
+    ONE_FLOW_DEF_STATE(1, "Enable", "禁用"),
 
     // ScheduledTask taskState 任务状态（0:启用 1:禁用 ）
     ZERO_TASK_STATE(0, "Disable", "禁用"),

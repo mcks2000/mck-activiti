@@ -33,6 +33,7 @@ public class BizException extends RuntimeException {
     }
 
     public BizException(String msg) {
-        super(msg);
+        this.code = 400;
+        this.msg = msg;
     }
 }

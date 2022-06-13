@@ -1,10 +1,8 @@
 package com.mck.activiti.controller;
 
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mck.activiti.common.config.exception.BizException;
 import com.mck.activiti.common.entity.*;
+import com.mck.activiti.common.util.ParamAssertUtil;
 import com.mck.activiti.module.flow.model.entity.FlowDef;
 import com.mck.activiti.module.flow.model.entity.FlowAudit;
 import com.mck.activiti.module.flow.model.entity.FlowRule;
@@ -73,9 +71,6 @@ public class FlowDefController {
     @ResponseBody
     public ResponseResult<String> submitFlowRule(@RequestBody FlowRule flowRule) {
         String resMsg = flowRuleService.insertFlowRule(flowRule);
-        if (StrUtil.isNotBlank(resMsg)) {
-            throw new BizException(ResultCode.FAIL.code, resMsg);
-        }
         return ResponseUtil.makeOKRsp(resMsg);
     }
 
@@ -89,13 +84,11 @@ public class FlowDefController {
     @ResponseBody
     public ResponseResult<String> delModel(HttpServletRequest request) {
         String ruleId = request.getParameter("ruleId");
-        if (StrUtil.isBlank(ruleId)) {
-            throw new BizException(ResultCode.NOT_FOUND.code, "流程规则ID不存在!", "流程规则ID不存在!");
-        }
+        ParamAssertUtil.notNull(ruleId,"流程规则ID不存在!");
+
         List<FlowAudit> flowAudits = flowAuditService.queryFlowByRuleId(ruleId);
-        if (ObjectUtil.isNotEmpty(flowAudits)) {
-            throw new BizException(ResultCode.INTERNAL_SERVER_ERROR.code, "改流程已被使用，无法删除!", "改流程已被使用，无法删除!");
-        }
+        ParamAssertUtil.isEmpty(flowAudits,"该流程已被使用，无法删除!");
+
         flowRuleService.deleteFlowRuleById(ruleId);
         return ResponseUtil.makeOKRsp("删除流程成功");
     }

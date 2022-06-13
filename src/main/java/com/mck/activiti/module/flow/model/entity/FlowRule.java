@@ -60,5 +60,7 @@ public class FlowRule extends BaseObject {
     @TableField(exist = false)
     private String defName;
 
+    @TableField(exist = false)
+    private String flowCode;
 
 }

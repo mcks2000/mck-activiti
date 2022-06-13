@@ -2,7 +2,6 @@ package com.mck.activiti.module.flow.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mck.activiti.common.service.impl.SuperServiceImpl;
-import com.mck.activiti.common.util.CommonUtil;
 import com.mck.activiti.enums.NumEnum;
 import com.mck.activiti.module.flow.mapper.FlowAuditMapper;
 import com.mck.activiti.module.flow.model.entity.FlowAudit;

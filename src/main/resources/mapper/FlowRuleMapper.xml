@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mck.activiti.module.flow.mapper.FlowRuleMapper">
+
+
+    <select id="queryFlowRuleByModelId" parameterType="string" resultType="com.mck.activiti.module.flow.model.entity.FlowRule">
+        SELECT
+        t.*
+        FROM
+        t_flow_rule t,
+        t_flow_def t2
+        WHERE
+        t.def_id = t2.def_id
+        AND t2.model_id = #{modelId}
+    </select>
+
+    <select id="queryList" parameterType="string" resultType="com.mck.activiti.module.flow.model.entity.FlowRule">
+        SELECT
+        t.*,
+        t2.flow_code
+        FROM
+        t_flow_rule t,
+        t_flow_def t2
+        WHERE
+        t.def_id = t2.def_id
+    </select>
+
+</mapper>

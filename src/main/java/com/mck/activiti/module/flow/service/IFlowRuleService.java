@@ -3,7 +3,10 @@ package com.mck.activiti.module.flow.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mck.activiti.common.entity.PageBean;
 import com.mck.activiti.common.service.ISuperService;
+import com.mck.activiti.module.flow.model.entity.FlowDef;
 import com.mck.activiti.module.flow.model.entity.FlowRule;
+
+import java.util.List;
 
 /**
  * @version 1.0.1
@@ -32,4 +35,12 @@ public interface IFlowRuleService extends ISuperService<FlowRule> {
      */
     void deleteFlowRuleById(String ruleId);
 
+    /**
+     * @param modelId activiti流程ID
+     * @return List<FlowDef>
+     * @Description 通过 {modelId} 查询流程ID是否被流程规则使用
+     */
+    List<FlowRule> queryFlowRuleByModelId(String modelId);
+
+    List<FlowRule> queryList();
 }
