@@ -12,7 +12,7 @@ import java.util.List;
  **/
 public class TreeUtil {
 
-    public static List<MenuVo> toTree(List<MenuVo> treeList, Integer pid) {
+    public static List<MenuVo> toTree(List<MenuVo> treeList, Long pid) {
         List<MenuVo> retList = new ArrayList<MenuVo>();
         for (MenuVo parent : treeList) {
             if (pid.equals(parent.getPid())) {

@@ -49,7 +49,7 @@ public class SystemServiceImpl implements ISystemService {
             menuVO.setTarget(e.getTarget());
             menuInfo.add(menuVO);
         }
-        map.put("menuInfo", TreeUtil.toTree(menuInfo, 0));
+        map.put("menuInfo", TreeUtil.toTree(menuInfo, 0L));
         home.put("title", "首页");
         home.put("href", "/page/welcome-1");//控制器路由,自行定义
         logo.put("title", "activiti工作流");

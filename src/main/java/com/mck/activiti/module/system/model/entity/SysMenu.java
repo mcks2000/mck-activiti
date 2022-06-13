@@ -23,11 +23,11 @@ public class SysMenu extends BaseObject {
      * id
      */
     @TableId("id")
-    private Integer id;
+    private Long id;
     /**
      * 父ID
      */
-    private Integer pid;
+    private Long pid;
 
     /**
      * 名称

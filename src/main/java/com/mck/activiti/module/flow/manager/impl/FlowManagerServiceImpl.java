@@ -83,7 +83,7 @@ public class FlowManagerServiceImpl implements IFlowManagerService {
         flowAudit.setOrderNo(orderId);
         flowAudit.setFlowDefId(String.valueOf(currFlowRule.getDefId()));
         flowAudit.setRuleId(currFlowRule.getRuleId());
-        flowAuditService.insertFlowAuditNoId(flowAudit);
+        flowAuditService.insertFlowAudit(flowAudit);
         //运行流程
         return processId;
     }

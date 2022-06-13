@@ -8,6 +8,7 @@ import com.mck.activiti.common.schedule.CronTaskRegistrar;
 import com.mck.activiti.common.schedule.SchedulingRunnable;
 import com.mck.activiti.common.service.impl.SuperServiceImpl;
 import com.mck.activiti.common.util.CommonUtil;
+import com.mck.activiti.enums.NumEnum;
 import com.mck.activiti.module.flow.model.entity.ScheduledTask;
 import com.mck.activiti.module.flow.mapper.ScheduledTaskMapper;
 import com.mck.activiti.module.flow.service.IScheduledTaskService;
@@ -40,9 +41,8 @@ public class ScheduledTaskServiceImpl extends SuperServiceImpl<ScheduledTaskMapp
         if (StrUtil.isNotBlank(scheduledTask.getTaskId())) {//编辑
             this.updateScheduledTask(scheduledTask);
         } else { //新增
-            scheduledTask.setTaskId(String.valueOf(CommonUtil.genId()));
             baseMapper.insert(scheduledTask);
-            if (scheduledTask.getTaskState() == 0) {
+            if (NumEnum.ZERO_TASK_STATE.getNum() == scheduledTask.getTaskState()) {
                 log.info("----------->添加任务到线程....");
                 SchedulingRunnable task = new SchedulingRunnable(scheduledTask.getClassName(), scheduledTask.getMethodName(), scheduledTask.getReqParams());
                 cronTaskRegistrar.addCronTask(task, scheduledTask.getTaskCron());
@@ -58,7 +58,7 @@ public class ScheduledTaskServiceImpl extends SuperServiceImpl<ScheduledTaskMapp
         //移除任务
         SchedulingRunnable task = new SchedulingRunnable(scheduledTask.getClassName(), scheduledTask.getMethodName(), scheduledTask.getReqParams());
         cronTaskRegistrar.removeCronTask(task);
-        if (scheduledTask.getTaskState() == 0) {
+        if (NumEnum.ZERO_TASK_STATE.getNum() == scheduledTask.getTaskState()) {
             //改为启用状态重新添加任务
             cronTaskRegistrar.addCronTask(task, scheduledTask.getTaskCron());
         }

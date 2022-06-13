@@ -3,6 +3,7 @@ package com.mck.activiti.module.flow.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mck.activiti.common.service.impl.SuperServiceImpl;
 import com.mck.activiti.common.util.CommonUtil;
+import com.mck.activiti.enums.NumEnum;
 import com.mck.activiti.module.flow.mapper.FlowAuditMapper;
 import com.mck.activiti.module.flow.model.entity.FlowAudit;
 import com.mck.activiti.module.flow.service.IFlowAuditService;
@@ -21,14 +22,7 @@ import java.util.List;
 public class FlowAuditServiceImpl extends SuperServiceImpl<FlowAuditMapper, FlowAudit> implements IFlowAuditService {
     @Override
     public void insertFlowAudit(FlowAudit flowAudit) {
-        flowAudit.setFlowAuditId(CommonUtil.genId());
-        flowAudit.setFlowState(1);
-        baseMapper.insert(flowAudit);
-    }
-
-    @Override
-    public void insertFlowAuditNoId(FlowAudit flowAudit) {
-        flowAudit.setFlowState(1);
+        flowAudit.setFlowState(NumEnum.ONE_FLOW_AUDIT_STATE.getNum());
         baseMapper.insert(flowAudit);
     }
 

@@ -3,6 +3,7 @@ package com.mck.activiti.module.flow.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mck.activiti.common.service.impl.SuperServiceImpl;
 import com.mck.activiti.common.util.CommonUtil;
+import com.mck.activiti.enums.NumEnum;
 import com.mck.activiti.module.flow.mapper.FlowDefMapper;
 import com.mck.activiti.module.flow.model.entity.FlowDef;
 import com.mck.activiti.module.flow.service.IFlowDefService;
@@ -23,7 +24,7 @@ public class FlowDefServiceImpl extends SuperServiceImpl<FlowDefMapper, FlowDef>
     @Override
     public List<FlowDef> queryFlowDefList() {
         QueryWrapper<FlowDef> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("flow_state", 0);
+        queryWrapper.eq("flow_state", NumEnum.ZERO_FLOW_DEF_STATE.getCode());
         return baseMapper.selectList(queryWrapper);
     }
 
@@ -40,8 +41,7 @@ public class FlowDefServiceImpl extends SuperServiceImpl<FlowDefMapper, FlowDef>
         queryWrapper.eq("flow_code", flowCode);
         Integer count = baseMapper.selectCount(queryWrapper);
         if (count <= 0) {
-            flowDef.setDefId(CommonUtil.genId());
-            flowDef.setFlowState(0);
+            flowDef.setFlowState(NumEnum.ZERO_FLOW_DEF_STATE.getNum());
             baseMapper.insert(flowDef);
         }
 

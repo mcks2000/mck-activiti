@@ -6,6 +6,7 @@ import com.mck.activiti.common.entity.SysConstant;
 import com.mck.activiti.common.service.impl.SuperServiceImpl;
 import com.mck.activiti.common.util.CommonUtil;
 import com.mck.activiti.common.util.ParamAssertUtil;
+import com.mck.activiti.enums.NumEnum;
 import com.mck.activiti.module.flow.mapper.VacationOrderMapper;
 import com.mck.activiti.module.flow.model.entity.FlowAudit;
 import com.mck.activiti.module.flow.model.entity.ProcessLog;
@@ -65,9 +66,7 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
             bean.setOrderNo(vacationOrder.getVacationId());
             bean.setOperValue(currentSysUser.getUserName() + "修改审批单");
         } else {
-            long orderNo = CommonUtil.genId();
-            vacationOrder.setVacationId(orderNo);
-            vacationOrder.setVacationState(0);
+            vacationOrder.setVacationState(NumEnum.ZERO_VACATION_STATE.getNum());
             vacationOrder.setUserId(currentSysUser.getUserId());
 
             // TODO 需要把用户角色完善后，才可自定义
@@ -75,7 +74,7 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
             vacationOrder.setBusiType("2001");//默认请假流程
 
             this.saveOrUpdate(vacationOrder);
-            bean.setOrderNo(orderNo);
+            bean.setOrderNo(vacationOrder.getVacationId());
             bean.setOperValue(currentSysUser.getUserName() + "填写审批单");
         }
 
@@ -155,7 +154,7 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
 
 
         //更新审批单状态
-        this.updateUpdateStateState(vacationId, SysConstant.REVIEW_STATE);
+        this.updateUpdateStateState(vacationId, NumEnum.ONE_VACATION_STATE.getNum());
         //记录日志
         ProcessLog bean = new ProcessLog();
         SysUser sysUser = userService.queryUserById(currentSysUser.getParentUserId());
@@ -173,11 +172,11 @@ public class VacationOrderServiceImpl extends SuperServiceImpl<VacationOrderMapp
     @Override
     @Transactional
     public void delVacationById(Long vacationId) {
-        this.updateUpdateStateState(vacationId, SysConstant.OBSOLETE_STATE);
+        this.updateUpdateStateState(vacationId, NumEnum.TWO_VACATION_STATE.getNum());
         //记录日志
         SysUser currentSysUser = userService.getCurrentUser();
         ProcessLog bean = new ProcessLog();
-        SysUser sysUser = userService.queryUserById(currentSysUser.getParentUserId());
+//        SysUser sysUser = userService.queryUserById(currentSysUser.getParentUserId());
         bean.setOrderNo(vacationId);
         bean.setApprovStatu("DELETE");
         bean.setOperValue(currentSysUser.getUserName() + "删除审批单");

@@ -31,7 +31,6 @@ public class ProcessLogServiceImpl extends SuperServiceImpl<ProcessLogMapper, Pr
     @Transactional
     public void insertProcessLog(ProcessLog processLog) {
         SysUser currentSysUser = userService.getCurrentUser();
-        processLog.setLogId(CommonUtil.genId());
         processLog.setOperId(currentSysUser.getUserName());
         baseMapper.insert(processLog);
     }

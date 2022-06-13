@@ -13,16 +13,10 @@ import java.util.List;
  **/
 public interface IFlowAuditService extends ISuperService<FlowAudit> {
     /**
-     * @param flowAudit
-     * @Description 记录流转主表信息
-     */
-    void insertFlowAudit(FlowAudit flowAudit);
-
-    /**
      * @param flowAudit 流程规则
      * @Description 记录流转主表信息
      */
-    void insertFlowAuditNoId(FlowAudit flowAudit);
+    void insertFlowAudit(FlowAudit flowAudit);
 
     /**
      * @param orderNo

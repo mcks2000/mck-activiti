@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mck.activiti.common.entity.PageBean;
 import com.mck.activiti.common.entity.SysConstant;
 import com.mck.activiti.common.service.impl.SuperServiceImpl;
+import com.mck.activiti.enums.NumEnum;
 import com.mck.activiti.module.flow.model.entity.ProcessLog;
 import com.mck.activiti.module.system.model.entity.SysUser;
 import com.mck.activiti.module.flow.model.vo.TaskVo;
@@ -51,8 +52,6 @@ public class TaskProceServiceImpl extends SuperServiceImpl<TaskMapper, TaskVo> i
         return baseMapper.queryTaskByVacationId(vacationId);
     }
 
-    //
-
     /**
      * TODO 1. 添加上一级是谁来审批，2.最后审批时间排在前面，判断如果是最后一位审批则自动跳过
      * <p>
@@ -68,13 +67,13 @@ public class TaskProceServiceImpl extends SuperServiceImpl<TaskMapper, TaskVo> i
         String spState = "";
         String spContext = "";
         if (StrUtil.equals("0", taskVo.getApprovalType())) {//审批通过
-            spState = SysConstant.APPROVAL_AGREE;
-            spContext = "审批通过";
+            spState = NumEnum.ZERO_APPROVAL_TYPE.getCode();
+            spContext = NumEnum.ZERO_APPROVAL_TYPE.getName();
             variables.put("spState", spState);
         } else if (StrUtil.equals("1", taskVo.getApprovalType())) {//驳回
-            vacationOrderService.updateUpdateStateState(Long.valueOf(taskVo.getVacationId()), SysConstant.SUBMITTED_STATE);
-            spState = SysConstant.APPROVAL_REJECT;
-            spContext = "审批未通过";
+            vacationOrderService.updateUpdateStateState(Long.valueOf(taskVo.getVacationId()), NumEnum.ZERO_VACATION_STATE.getNum());
+            spState = NumEnum.ONE_APPROVAL_TYPE.getCode();
+            spContext = NumEnum.ONE_APPROVAL_TYPE.getName();
             variables.put("spState", spState);
         }
         taskService.complete(taskVo.getTaskId(), variables);

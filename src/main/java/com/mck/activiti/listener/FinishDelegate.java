@@ -2,6 +2,7 @@ package com.mck.activiti.listener;
 
 import com.mck.activiti.common.entity.SysConstant;
 import com.mck.activiti.common.util.SpringUtils;
+import com.mck.activiti.enums.NumEnum;
 import com.mck.activiti.module.flow.model.entity.FlowAudit;
 import com.mck.activiti.module.flow.model.entity.ProcessLog;
 import com.mck.activiti.module.system.model.entity.SysUser;
@@ -32,15 +33,15 @@ public class FinishDelegate implements JavaDelegate {
         log.info("审批完成更新审批状态:{}", flowAuditId);
 
         FlowAudit flowAudit = flowAuditService.queryFlowAuditById(flowAuditId);
-        vacationOrderService.updateUpdateStateState(flowAudit.getOrderNo(), SysConstant.COMPLETED_STATE);
+        vacationOrderService.updateUpdateStateState(flowAudit.getOrderNo(), NumEnum.THREE_VACATION_STATE.getNum());
         //记录日志
         ProcessLog bean = new ProcessLog();
-        SysUser sysUser = userService.getCurrentUser();
+//        SysUser sysUser = userService.getCurrentUser();
         bean.setOrderNo(flowAudit.getOrderNo());
-        bean.setTaskName("审批完成");
-        bean.setTaskKey("finish_end");
-        bean.setApprovStatu("finish_end");
-        bean.setOperValue("审批完工");
+        bean.setTaskName(NumEnum.THREE_VACATION_STATE.getName());
+        bean.setTaskKey(NumEnum.THREE_VACATION_STATE.getCode());
+        bean.setApprovStatu(NumEnum.THREE_VACATION_STATE.getCode());
+        bean.setOperValue(NumEnum.THREE_VACATION_STATE.getName());
         logService.insertProcessLog(bean);
     }
 }

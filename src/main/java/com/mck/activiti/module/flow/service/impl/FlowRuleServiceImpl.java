@@ -24,7 +24,6 @@ public class FlowRuleServiceImpl extends SuperServiceImpl<FlowRuleMapper, FlowRu
         String resMsg = "";
         Integer count = this.count();
         if (count <= 0) {
-            flowRule.setRuleId(CommonUtil.genId());
             flowRule.setSystemCode(String.join(",", flowRule.getSystemIds()));
             flowRule.setBusiType(String.join(",", flowRule.getBusiTypes()));
             baseMapper.insert(flowRule);

@@ -14,9 +14,9 @@ import java.util.List;
 @Data
 public class MenuVo {
 
-    private Integer id;
+    private Long id;
 
-    private Integer pid;
+    private Long pid;
 
     private String title;
 
